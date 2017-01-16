@@ -125,39 +125,37 @@
 			<div class="col-md-9 order-content">	          
 				<div class="form_main col-md-4 col-sm-5 col-xs-7">
 		            <h4 class="heading"><strong>Edit Personal </strong> Contact <span></span></h4>
-		            {{#if isInRole 'agency'}}
-			            <div class="form">
-			                <form action="" method="" id="contactFrm" name="contactFrm">
-			                    <div class="form-group col-lg-12">
-									<label>Username</label>
-									<input type="" name="username" class="form-control" id="" value="{{currentUser.profile.username}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Email Address</label>
-									<input type="" name="email" class="form-control" id="" value="{{currentUser.emails.[0].address}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Siret Number</label>
-									<input type="" name="siret-num" class="form-control" id="" value="{{currentUser.profile.siret_num}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Contact Name</label>
-									<input type="" name="contact-name" class="form-control" id="" value="{{currentUser.profile.contact_name}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Phone</label>
-									<input type="" name="phone" class="form-control" id="" value="{{currentUser.profile.phone}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Address</label>
-									<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.address}}">
-								</div>
-			                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
-			                    <input type="hidden" name="timestamp" value="{{currentUser.profile.time}}">
-			                    <input type="hidden" name="profileId" value="{{currentUser._id}}">
-			                </form>
-			            </div>
-			        {{/if}}
+		            <div class="form">
+		                <form action="" method="" id="contactFrm" name="contactFrm">
+		                    <div class="form-group col-lg-12">
+								<label>Username</label>
+								<input type="" name="username" class="form-control" id="" value="{{currentUser.profile.username}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Email Address</label>
+								<input type="" name="email" class="form-control" id="" value="{{currentUser.emails.[0].address}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Siret Number</label>
+								<input type="" name="siret-num" class="form-control" id="" value="{{currentUser.profile.siret_num}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Contact Name</label>
+								<input type="" name="contact-name" class="form-control" id="" value="{{currentUser.profile.contact_name}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Phone</label>
+								<input type="" name="phone" class="form-control" id="" value="{{currentUser.profile.phone}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Address</label>
+								<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.address}}">
+							</div>
+		                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
+		                    <input type="hidden" name="timestamp" value="{{currentUser.profile.time}}">
+		                    <input type="hidden" name="profileId" value="{{currentUser._id}}">
+		                </form>
+		            </div>
 		        </div>	            
 			</div>	
 		</div>
