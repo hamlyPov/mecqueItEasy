@@ -1,0 +1,161 @@
+<template name="profile">
+	<div class="container">
+	    <div class="row profile">
+			{{>profilemenu}}
+			<div class="col-md-9 order-content">	          
+				<div class="form_main col-md-4 col-sm-5 col-xs-7">
+		            <h4 class="heading"><strong>Personal </strong> Contact <span></span></h4>
+		            <div class="well well-sm">
+		                <div class="media">
+		                    <a class="thumbnail pull-left" href="#">
+		                        <img class="media-object" src="http://guarddome.com/assets/images/profile-img.jpg" width="110">
+		                    </a>
+		                    <div class="media-body">
+		                        <h4 class="media-heading">{{currentUser.profile.username}}</h4>
+		                		<p><span class="label label-info">888 photos</span> <span class="label label-warning">150 followers</span></p>
+		                        <p>
+		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
+		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
+		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
+		                        </p>
+		                    </div>
+		                </div>
+		            </div>
+		            <table class="table table-hover">
+					    <tbody>
+					      <tr>
+					        <td>Username: <b>{{currentUser.profile.username}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>Address: <b>{{currentUser.emails.[0].address}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>Phone Number: <b>{{currentUser.profile.phone}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>Contact Name: <b>{{currentUser.profile.contact_name}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>Siret Number: <b>{{currentUser.profile.siret_num}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>Address: <b>{{currentUser.profile.address}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					    </tbody>
+					  </table>
+		        </div>	            
+			</div>	
+		</div>
+	</div>
+</template>
+
+<template name="profilemenu">
+	<div class="col-md-3">
+				<div class="profile-sidebar">
+					<div class="profile-userpic">
+	                   
+	                    
+					</div>
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							<span class="hidden-xs">Hareesh Vudari</span>
+						</div>
+						<div class="profile-usertitle-job">
+						</div>
+					</div>
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li class="active">
+								<a href="/profile">
+								<i class="glyphicon glyphicon-home"></i>
+								<span class="hidden-xs">Personal Info</span> </a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="glyphicon glyphicon-user"></i>
+								<span class="hidden-xs">Change Password</span> </a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="glyphicon glyphicon-ok"></i>
+								<span class="hidden-xs">Setting </span></a>
+							</li>
+	                        
+						</ul>
+					</div>
+					<!-- END MENU -->
+				</div>
+			</div>
+</template>
+
+<template name="editprofile">
+	<div class="container">
+	    <div class="row profile">
+			{{>profilemenu}}
+			<div class="col-md-9 order-content">	          
+				<div class="form_main col-md-4 col-sm-5 col-xs-7">
+		            <h4 class="heading"><strong>Edit Personal </strong> Contact <span></span></h4>
+		            <div class="form">
+		                <form action="" method="" id="contactFrm" name="contactFrm">
+		                    <div class="form-group col-lg-12">
+								<label>Username</label>
+								<input type="" name="username" class="form-control" id="" value="{{currentUser.profile.username}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Email Address</label>
+								<input type="" name="email" class="form-control" id="" value="{{currentUser.emails.[0].address}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Siret Number</label>
+								<input type="" name="siret-num" class="form-control" id="" value="{{currentUser.profile.siret_num}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Contact Name</label>
+								<input type="" name="contact-name" class="form-control" id="" value="{{currentUser.profile.contact_name}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Phone</label>
+								<input type="" name="phone" class="form-control" id="" value="{{currentUser.profile.phone}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Address</label>
+								<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.address}}">
+							</div>
+		                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
+		                </form>
+		            </div>
+		        </div>	            
+			</div>	
+		</div>
+	</div>
+</template>
