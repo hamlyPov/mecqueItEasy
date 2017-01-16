@@ -29,16 +29,14 @@ Template.agency.events({
 Template.editprofile.events({
 	"click #btn-update": function(e){
 		e.preventDefault();
+		var id = $('[name="profileId"]').val();
 		var username = $('[name="username"]').val();
 		var email = $('[name="email"]').val();
 		var siret_num = $('[name="siret-num"]').val();
 		var contact_name = $('[name="contact-name"]').val();
 		var phone = $('[name="phone"]').val();
 		var address = $('[name="address"]').val();
-		var password = $('[name="password"]').val();
-		var roles = 'agency';
-		var timestamp = Date.now();
-		alert(timestamp);
+		var timestamp = $('[name="timestamp"]').val();
 		var obj = {
 			username:username,
         	siret_num:siret_num,
@@ -47,10 +45,13 @@ Template.editprofile.events({
         	address:address,
         	time:timestamp
 		}
-		Meteor.call('registerUser',email,password,obj,roles,function(error, response){
+		Meteor.call('UpdateProfile',id,email,obj,function(error, response){
 			if(error){
 				console.log('error: '+error.reason);
-			}else{console.log('RegisterAgency Successfully');}
+			}else{
+				console.log('UpdateProfile Successfully');
+				Router.go('/profile');
+			}
 		});
 	}
 });
