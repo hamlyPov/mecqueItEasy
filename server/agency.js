@@ -1,10 +1,9 @@
 Meteor.methods({
-	RegisterAgency:function(email,password,obj,roles){
-		targetUserId = Accounts.createUser({
-            email: email,
-            password: password,
-            profile: obj
-        });
-        Roles.setUserRoles(targetUserId,roles);
+	UpdateProfile:function(id,email,obj){
+		var attr={
+            emails:[{address: email,verified: "false"}],
+            profile:obj
+        }
+        return Meteor.users.update({_id:id},{$set: attr});
 	},
 });

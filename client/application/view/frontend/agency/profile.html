@@ -173,33 +173,35 @@
 		            <h4 class="heading"><strong>Edit Personal </strong> Contact <span></span></h4>
 		            <div class="form">
 		            	{{#if isInRole 'agency'}}
-			                <form action="" method="" id="contactFrm" name="contactFrm">
-			                    <div class="form-group col-lg-12">
-									<label>Username</label>
-									<input type="" name="username" class="form-control" id="" value="{{currentUser.profile.username}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Email Address</label>
-									<input type="" name="email" class="form-control" id="" value="{{currentUser.emails.[0].address}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Siret Number</label>
-									<input type="" name="siret-num" class="form-control" id="" value="{{currentUser.profile.siret_num}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Contact Name</label>
-									<input type="" name="contact-name" class="form-control" id="" value="{{currentUser.profile.contact_name}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Phone</label>
-									<input type="" name="phone" class="form-control" id="" value="{{currentUser.profile.phone}}">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>Address</label>
-									<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.address}}">
-								</div>
-			                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
-			                </form>
+			            <form action="" method="" id="contactFrm" name="contactFrm">
+		                    <div class="form-group col-lg-12">
+								<label>Username</label>
+								<input type="" name="username" class="form-control" id="" value="{{currentUser.profile.username}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Email Address</label>
+								<input type="" name="email" class="form-control" id="" value="{{currentUser.emails.[0].address}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Siret Number</label>
+								<input type="" name="siret-num" class="form-control" id="" value="{{currentUser.profile.siret_num}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Contact Name</label>
+								<input type="" name="contact-name" class="form-control" id="" value="{{currentUser.profile.contact_name}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Phone</label>
+								<input type="" name="phone" class="form-control" id="" value="{{currentUser.profile.phone}}">
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Address</label>
+								<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.address}}">
+							</div>
+		                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
+		                    <input type="hidden" name="timestamp" value="{{currentUser.profile.time}}">
+		                    <input type="hidden" name="profileId" value="{{currentUser._id}}">
+		                </form>
 			            {{else}}
 			            	<form action="" method="" id="contactFrm" name="contactFrm">
 			                    <div class="form-group col-lg-12">
@@ -214,17 +216,22 @@
 									<label>Email Address</label>
 									<input type="" name="email" class="form-control" id="email" value="{{currentUser.emails.[0].address}}">
 								</div>
+								 <div class="form-group col-lg-12">
+									<label>Date Of Birth</label>
+									<input type="" name="username" class="form-control" id="dob" value="{{currentUser.profile.dob}}">
+								</div>
 								<div class="form-group col-lg-12">
 									<label>Phone</label>
 									<input type="" name="phone" class="form-control" id="phone" value="{{currentUser.profile.phone}}">
 								</div>
 								<div class="form-group col-lg-12 hidden">
-									<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.type}}">
-									<input type="" name="address" class="form-control" id="" value="{{currentUser.profile.numpayment}}">
+									<input type="" name="address" class="form-control" id="selecttype" value="{{currentUser.profile.type}}">
+									<input type="" name="address" class="form-control" id="numpayment" value="{{currentUser.profile.numpayment}}">
 								</div>
-			                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
+			                    <button type="button" id="btneditprofile" class="btn btn-default">Update</button>
 			                </form>
 			            {{/if}}
+
 		            </div>
 		        </div>	            
 			</div>	

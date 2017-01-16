@@ -132,9 +132,9 @@ Template.profile.helpers({
 	}
 });
 Template.editprofile.events({
-	'click #btneditprofile':function(){
+	'click #btneditprofile':function(e){
 		e.preventDefault();
-		var username=$("#firstname").val();
+		var username=$("#username").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
 		var phone=$("#phone").val();
@@ -149,6 +149,7 @@ Template.editprofile.events({
 			type:selecttype,
 			numpayment:numpayment
 		}
-		Meteor.call("updateProfile",email,obj);
+		var id=Meteor.userId();
+		Meteor.call("UpdateProfile",id,email,obj);
 	}
 });
