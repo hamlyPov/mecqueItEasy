@@ -67,3 +67,63 @@ Template.signin.events({
 	}
 });
 
+Template.userregister.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
+});
+
+Template.userregister.events({
+	'click #btnnext':function(e){
+		e.preventDefault();
+		var firstname=$("#firstname").val();
+		var familyname=$("#familyname").val();
+		var dob=$("#dob").val();
+		var phone=$("#phone").val();
+		var email=$("#email").val();
+		var password=$("#pwd").val();
+		if(firstname==''||familyname==''||dob==''||phone==''||email==''||password==''){
+			$("#error").html("<b style='color:red'>please fill out the form </b>")
+		}else{
+			$("#registerform").addClass("hidden");
+			$("#nextrgister").removeClass("hidden")
+		}
+		
+	},
+	'click #btnregister':function(e){
+		e.preventDefault();
+		var firstname=$("#firstname").val();
+		var familyname=$("#familyname").val();
+		var dob=$("#dob").val();
+		var phone=$("#phone").val();
+		var email=$("#email").val();
+		var password=$("#pwd").val();
+		var role="affiliate"
+		var numpayment=$("#numpayment").val();
+		var selecttype=$("#selecttype").val();
+		var obj={
+			firstname:firstname,
+			familyname:familyname,
+			dob:dob,
+			phone:phone,
+			type:selecttype,
+			numpayment:numpayment
+		}
+		Meteor.call("registerUser",email,password,obj,role);
+
+	},
+	"change #selecttype":function(e){
+		e.preventDefault();
+		var selecttype=$("#selecttype").val();
+		if(selecttype=="hajj"){
+			 option =' <option>1</option> <option>2</option><option>3</option>'
+			 $("#numpayment").html(option);
+
+		}else if(selecttype=="omrah"){
+			option =' <option>1</option> <option>2</option><option>4</option><option>6</option>'
+			$("#numpayment").html(option);
+		}
+	}
+});
+
+Template.userregister.helpers({
+
+});
