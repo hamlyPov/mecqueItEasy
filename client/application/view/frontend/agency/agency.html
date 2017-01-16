@@ -1,33 +1,36 @@
 <template name="agency">
 	<div class="container-fluid">
     <section class="container">
-		<div class="container-page">				
+		<div class="container-page">
+			<form class="reg">				
 			<div class="col-md-6">
 				<h3 class="dark-grey">Registration</h3>
-				
+				<div class="form-group col-lg-12" id="msg-error">
+
+				</div>
 				<div class="form-group col-lg-12">
 					<label>Username</label>
-					<input type="" name="username" class="form-control" id="" value="">
+					<input type="text" name="username" class="form-control" id="" value="">
 				</div>
 				<div class="form-group col-lg-12">
 					<label>Email Address</label>
-					<input type="" name="email" class="form-control" id="" value="">
+					<input type="email" name="email" class="form-control" id="" value="">
 				</div>
 				<div class="form-group col-lg-12">
 					<label>Siret Number</label>
-					<input type="" name="siret-num" class="form-control" id="" value="">
+					<input type="text" name="siretnum" class="form-control" id="" value="">
 				</div>
 				<div class="form-group col-lg-12">
 					<label>Contact Name</label>
-					<input type="" name="contact-name" class="form-control" id="" value="">
+					<input type="text" name="contactname" class="form-control" id="" value="">
 				</div>
 				<div class="form-group col-lg-12">
 					<label>Phone</label>
-					<input type="" name="phone" class="form-control" id="" value="">
+					<input type="text" name="phone" class="form-control" id="" value="">
 				</div>
 				<div class="form-group col-lg-12">
 					<label>Address</label>
-					<input type="" name="address" class="form-control" id="" value="">
+					<input type="text" name="address" class="form-control" id="" value="">
 				</div>
 				<div class="form-group col-lg-6">
 					<label>Password</label>
@@ -57,10 +60,11 @@
 					Acceptance of an order by us is dependent on our suppliers ability to provide the product. (Paragraph 13.5.6)
 				</p>
 				<div class="col-sm-6">
-					<input type="checkbox" class="checkbox" />Agree with this?
+					<input type="checkbox" name="agree" class="checkbox" />Agree with this?
 				</div>	
 				<button type="submit" id="btn-register" class="btn btn-primary">Register</button>
 			</div>
+			</form>
 		</div>
 	</section>
 </div>

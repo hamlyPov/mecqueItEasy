@@ -152,3 +152,8 @@ padding:0 0 0 15px;
     color: #949390;
     transition: all 0.5s ease 0s;
 }
+
+input.error{
+    background-color:rgb(255, 231, 231);
+}
+.error{color:red;}
