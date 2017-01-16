@@ -124,6 +124,33 @@ Template.userregister.events({
 	}
 });
 
-Template.userregister.helpers({
+Template.profile.helpers({
+	getProfileEdit:function(){
+		var id=Meteor.userId();
+		console.log(id);
+		return Meteor.users.findOne({_id:id});
+	}
+});
+Template.profile.events({
+	'click #btneditprofile':function(){
+		e.preventDefault();
+		var firstname=$("#firstname").val();
+		var familyname=$("#familyname").val();
+		var dob=$("#dob").val();
+		var phone=$("#phone").val();
+		var email=$("#email").val();
+		var numpayment=$("#numpayment").val();
+		var selecttype=$("#selecttype").val();
+		var obj={
+			firstname:firstname,
+			familyname:familyname,
+			dob:dob,
+			phone:phone,
+			type:selecttype,
+			numpayment:numpayment
+		}
+		Meteor.call("updateProfile",email,obj){
 
+		}
+	}
 });
