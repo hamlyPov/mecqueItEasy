@@ -1,0 +1,10 @@
+.pb-index-header {
+    width: 100%;
+    padding-bottom: 20px;
+    padding-top: 30px;
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: white;
+    background-image: url(/Content/images/background.jpg);
+    /* background-color: #F58723; */
+}
