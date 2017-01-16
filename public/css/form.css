@@ -1,6 +1,6 @@
 body
 {
-    background: url('/res/signin-background.jpg') fixed !important;
+    /*background: url('/res/signin-background.jpg') fixed !important;*/
     background-size: cover ;
     padding: 0;
     margin: 0;
