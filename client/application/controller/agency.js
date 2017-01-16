@@ -9,17 +9,20 @@ Template.agency.events({
 		var address = $('[name="address"]').val();
 		var password = $('[name="password"]').val();
 		var roles = 'agency';
+		var timestamp = Date.now();
+		alert(timestamp);
 		var obj = {
 			username:username,
         	siret_num:siret_num,
         	contact_name:contact_name,
         	phone:phone,
-        	address:address
+        	address:address,
+        	time:timestamp
 		}
-		Meteor.call('registerUser',email,password,obj,roles,function(error){
-			if(!error){
-				alert('register agency successfully');
-			}
+		Meteor.call('registerUser',email,password,obj,roles,function(error, response){
+			if(error){
+				console.log('error: '+error.reason);
+			}else{console.log('RegisterAgency Successfully');}
 		});
 	}
 });
