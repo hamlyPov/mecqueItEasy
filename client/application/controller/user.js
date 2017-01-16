@@ -74,13 +74,13 @@ Template.userregister.onRendered(function() {
 Template.userregister.events({
 	'click #btnnext':function(e){
 		e.preventDefault();
-		var firstname=$("#firstname").val();
+		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
 		var phone=$("#phone").val();
 		var email=$("#email").val();
 		var password=$("#pwd").val();
-		if(firstname==''||familyname==''||dob==''||phone==''||email==''||password==''){
+		if(username==''||familyname==''||dob==''||phone==''||email==''||password==''){
 			$("#error").html("<b style='color:red'>please fill out the form </b>")
 		}else{
 			$("#registerform").addClass("hidden");
@@ -90,7 +90,7 @@ Template.userregister.events({
 	},
 	'click #btnregister':function(e){
 		e.preventDefault();
-		var firstname=$("#firstname").val();
+		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
 		var phone=$("#phone").val();
@@ -100,14 +100,18 @@ Template.userregister.events({
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
 		var obj={
-			firstname:firstname,
+			username:username,
 			familyname:familyname,
 			dob:dob,
 			phone:phone,
 			type:selecttype,
 			numpayment:numpayment
 		}
-		Meteor.call("registerUser",email,password,obj,role);
+		Meteor.call("registerUser",email,password,obj,role,function(err){
+			if(!err){
+				Router.go("/user/profile")
+			}
+		});
 
 	},
 	"change #selecttype":function(e){
@@ -124,6 +128,35 @@ Template.userregister.events({
 	}
 });
 
-Template.userregister.helpers({
-
+Template.profile.helpers({
+	getProfileEdit:function(){
+		var id=Meteor.userId();
+		console.log(id);
+		return Meteor.users.findOne({_id:id});
+	}
+});
+Template.editprofile.events({
+	'click #btneditprofile':function(e){
+		e.preventDefault();
+		var username=$("#username").val();
+		var familyname=$("#familyname").val();
+		var dob=$("#dob").val();
+		var phone=$("#phone").val();
+		var email=$("#email").val();
+		var numpayment=$("#numpayment").val();
+		var selecttype=$("#selecttype").val();
+		var obj={
+			username:username,
+			familyname:familyname,
+			dob:dob,
+			phone:phone,
+			type:selecttype,
+			numpayment:numpayment
+		}
+		var id=Meteor.userId();
+		Meteor.call("UpdateProfile",id,email,obj);
+	}
+});
+Template.editprofile.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
 });

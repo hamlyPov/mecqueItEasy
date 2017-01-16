@@ -22,6 +22,7 @@
 		                </div>
 		            </div>
 		            <table class="table table-hover">
+		           		{{#if isInRole 'agency'}}
 					    <tbody>
 					      <tr>
 					        <td>Username: <b>{{currentUser.profile.username}}</b></td>
@@ -72,6 +73,51 @@
 					        </td>
 					      </tr>
 					    </tbody>
+					    {{else}}
+					    	<tbody>
+						      <tr>
+						        <td>User Name: <b>{{currentUser.profile.username}}</b></td>
+						        <td>
+						        	<a href="/profile/edit/{{currentUser._id}}">
+						        	<span class="btn-label icon fa fa-edit"></span>edit
+						        	</a>
+						        </td>
+						      </tr>
+						      <tr>
+						        <td>Family Name: <b>{{currentUser.profile.familyname}}</b></td>
+						        <td>
+						        	<a href="/profile/edit/{{currentUser._id}}">
+						        	<span class="btn-label icon fa fa-edit"></span>edit
+						        	</a>
+						        </td>
+						      </tr>
+						      <tr>
+						        <td>Address: <b>{{currentUser.emails.[0].address}}</b></td>
+						        <td>
+						        	<a href="/profile/edit/{{currentUser._id}}">
+						        	<span class="btn-label icon fa fa-edit"></span>edit
+						        	</a>
+						        </td>
+						      </tr>
+						      <tr>
+						        <td>Phone Number: <b>{{currentUser.profile.phone}}</b></td>
+						        <td>
+						        	<a href="/profile/edit/{{currentUser._id}}">
+						        	<span class="btn-label icon fa fa-edit"></span>edit
+						        	</a>
+						        </td>
+						      </tr>
+						      <tr>
+					        <td>Date Of birth: <b>{{currentUser.profile.dob}}</b></td>
+					        <td>
+					        	<a href="/profile/edit/{{currentUser._id}}">
+					        	<span class="btn-label icon fa fa-edit"></span>edit
+					        	</a>
+					        </td>
+					      </tr>
+					    
+					    </tbody>
+					    {{/if}}
 					  </table>
 		        </div>	            
 			</div>	
@@ -125,8 +171,9 @@
 			<div class="col-md-9 order-content">	          
 				<div class="form_main col-md-4 col-sm-5 col-xs-7">
 		            <h4 class="heading"><strong>Edit Personal </strong> Contact <span></span></h4>
-		            <form class="regedit">
-		            	<div class="form">
+		            <div class="form">
+		            	{{#if isInRole 'agency'}}
+			            <form action="" class="regedit" method="" id="contactFrm" name="contactFrm">
 		                    <div class="form-group col-lg-12">
 								<label>Username</label>
 								<input type="text" name="username" class="form-control" id="" value="{{currentUser.profile.username}}">
@@ -154,8 +201,42 @@
 		                    <button type="button" id="btn-update" class="btn btn-default">Update</button>
 		                    <input type="hidden" name="timestamp" value="{{currentUser.profile.time}}">
 		                    <input type="hidden" name="profileId" value="{{currentUser._id}}">
-		            	</div>
-		            </form>
+		                </form>
+			            {{else}}
+			            	<form action="" method="" id="contactFrm" name="contactFrm">
+			                    <div class="form-group col-lg-12">
+									<label>Username</label>
+									<input type="" name="username" class="form-control" id="username" value="{{currentUser.profile.username}}">
+								</div>
+								 <div class="form-group col-lg-12">
+									<label>Family Name</label>
+									<input type="" name="username" class="form-control" id="familyname" value="{{currentUser.profile.familyname}}">
+								</div>
+								<div class="form-group col-lg-12">
+									<label>Email Address</label>
+									<input type="" name="email" class="form-control" id="email" value="{{currentUser.emails.[0].address}}">
+								</div>
+								 <div class="form-group col-lg-12">
+									<label>Date Of Birth</label>
+									<!-- <input type="" name="username" class="form-control" id="dob" value="{{currentUser.profile.dob}}"> -->
+									 <div class="input-group datetimepicker">
+									    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									    <input class="set-due-date form-control" id="dob" value="{{currentUser.profile.dob}}" type="text"/>
+									</div>
+								</div>
+								<div class="form-group col-lg-12">
+									<label>Phone</label>
+									<input type="" name="phone" class="form-control" id="phone" value="{{currentUser.profile.phone}}">
+								</div>
+								<div class="form-group col-lg-12 hidden">
+									<input type="" name="address" class="form-control" id="selecttype" value="{{currentUser.profile.type}}">
+									<input type="" name="address" class="form-control" id="numpayment" value="{{currentUser.profile.numpayment}}">
+								</div>
+			                    <button type="button" id="btneditprofile" class="btn btn-default">Update</button>
+			                </form>
+			            {{/if}}
+
+		            </div>
 		        </div>	            
 			</div>	
 		</div>
