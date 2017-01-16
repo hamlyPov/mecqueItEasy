@@ -29,6 +29,6 @@ Meteor.methods({
         Roles.setUserRoles(targetUserId,roles);
     },
     updateProfile:function(email,obj){
-         Meteor.users.update({ _id: Meteor.userId() }, { $set: { "emails.0.address": email },{profile:obj} });
+         Meteor.users.update({ _id: Meteor.userId() }, { $set: { "emails.0.address": email,profile:obj } });
     }
 });

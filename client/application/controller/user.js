@@ -74,13 +74,13 @@ Template.userregister.onRendered(function() {
 Template.userregister.events({
 	'click #btnnext':function(e){
 		e.preventDefault();
-		var firstname=$("#firstname").val();
+		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
 		var phone=$("#phone").val();
 		var email=$("#email").val();
 		var password=$("#pwd").val();
-		if(firstname==''||familyname==''||dob==''||phone==''||email==''||password==''){
+		if(username==''||familyname==''||dob==''||phone==''||email==''||password==''){
 			$("#error").html("<b style='color:red'>please fill out the form </b>")
 		}else{
 			$("#registerform").addClass("hidden");
@@ -90,7 +90,7 @@ Template.userregister.events({
 	},
 	'click #btnregister':function(e){
 		e.preventDefault();
-		var firstname=$("#firstname").val();
+		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
 		var phone=$("#phone").val();
@@ -100,7 +100,7 @@ Template.userregister.events({
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
 		var obj={
-			firstname:firstname,
+			username:username,
 			familyname:familyname,
 			dob:dob,
 			phone:phone,
@@ -131,10 +131,10 @@ Template.profile.helpers({
 		return Meteor.users.findOne({_id:id});
 	}
 });
-Template.profile.events({
+Template.editprofile.events({
 	'click #btneditprofile':function(){
 		e.preventDefault();
-		var firstname=$("#firstname").val();
+		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
 		var phone=$("#phone").val();
@@ -142,15 +142,13 @@ Template.profile.events({
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
 		var obj={
-			firstname:firstname,
+			username:username,
 			familyname:familyname,
 			dob:dob,
 			phone:phone,
 			type:selecttype,
 			numpayment:numpayment
 		}
-		Meteor.call("updateProfile",email,obj){
-
-		}
+		Meteor.call("updateProfile",email,obj);
 	}
 });
