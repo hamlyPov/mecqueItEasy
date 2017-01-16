@@ -107,7 +107,11 @@ Template.userregister.events({
 			type:selecttype,
 			numpayment:numpayment
 		}
-		Meteor.call("registerUser",email,password,obj,role);
+		Meteor.call("registerUser",email,password,obj,role,function(err){
+			if(!err){
+				Router.go("/user/profile")
+			}
+		});
 
 	},
 	"change #selecttype":function(e){
@@ -152,4 +156,7 @@ Template.editprofile.events({
 		var id=Meteor.userId();
 		Meteor.call("UpdateProfile",id,email,obj);
 	}
+});
+Template.editprofile.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
 });
