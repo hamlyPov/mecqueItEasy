@@ -33,3 +33,4 @@ manuelschoebel:wait-on-lib
 mrt:external-file-loader
 npm-container
 npm-bcrypt
+tsega:bootstrap3-datetimepicker
