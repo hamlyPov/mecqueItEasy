@@ -1,61 +1,8 @@
 Template.agency.onRendered(function(){
-    $('.reg').validate({
-        rules: {
-        	username: {
-        		required: true
-        	},
-        	siretnum:{
-        		required: true
-        	},
-        	contactname:{
-        		required: true
-        	},
-            email: {
-                required: true,
-                email: true
-            },
-            phone:{
-            	required: true,
-            	number: true
-            },
-            address:{
-            	required: true
-            },
-            password: {
-                required: true,
-                minlength: 6
-            },
-            agree:{
-            	required: true
-            }
-        }
-    });
+    $('.reg').validate();
 });
 Template.editprofile.onRendered(function(){
-    $('.regedit').validate({
-        rules: {
-        	username: {
-        		required: true
-        	},
-        	siretnum:{
-        		required: true
-        	},
-        	contactname:{
-        		required: true
-        	},
-            email: {
-                required: true,
-                email: true
-            },
-            phone:{
-            	required: true,
-            	number: true
-            },
-            address:{
-            	required: true
-            }
-        }
-    });
+    $('.regedit').validate();
 });
 Template.agency.events({
 	"click #btn-register": function(e){
