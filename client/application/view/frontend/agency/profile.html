@@ -12,12 +12,15 @@
 		                    </a>
 		                    <div class="media-body">
 		                        <h4 class="media-heading">{{currentUser.profile.username}}</h4>
-		                		<p><span class="label label-info">888 photos</span> <span class="label label-warning">150 followers</span></p>
+		                		<p><span class="label label-info">{{CountInvite}} invited</span> <span class="label label-warning">$3000 Total</span></p>
 		                        <p>
 		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
 		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
 		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
 		                        </p>
+		                        {{#if GenerateButton}}
+		                        <input type="button" name="ticket" value="Generate Ticket" class="pull-right btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
+		                        {{/if}}
 		                    </div>
 		                </div>
 		            </div>
@@ -119,10 +122,74 @@
 					    </tbody>
 					    {{/if}}
 					  </table>
-		        </div>	            
+		        </div>	
+		        {{>inviteuser}}            
 			</div>	
 		</div>
 	</div>
+<!-- Popup Modal Ticket -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <form>
+	        <div class="form-group">
+	        	<div class="col-md-6">
+	        		<div class="col-md-2"><label for="sel1">Agency:</label></div>
+	        		<div class="col-md-10">
+						<select class="form-control" id="selagency">
+							{{#each GetallAgency}}
+						    	<option value="_id">{{profile.username}}, {{emails.[0].address}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+	        		<div class="col-md-2"><label for="sel1">Time:</label></div>
+	        		<div class="col-md-10">
+						  <select class="form-control" id="sel1">
+						    <option>1</option>
+						    <option>2</option>
+						    <option>3</option>
+						    <option>4</option>
+						  </select>
+					</div>
+				</div>
+	        </div>
+        </form>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+       			<thead>
+       				<th>No</th>
+       				<th>Agency name</th>
+       				<th>description</th>
+       				<th>date_of_departure</th>
+       				<th>date_of_return</th>
+       				<th>Action</th>
+       			</thead>
+			    <tbody>
+			    	{{#each GetProduct}}
+				      	<tr>
+				        	<td>{{index}}</td>
+				        	<td>{{getagencyname agency}}</td>
+				        	<td>{{description}}</td>
+				        	<td>{{date_of_departure}}</td>
+				        	<td>{{date_of_return}}</td>
+				        	<td><input type="button" name="book" value="Book" class="btn-success btn-sm"></td>
+				      	</tr>
+				    {{/each}}
+			    </tbody>
+		  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Fly</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <template name="profilemenu">
@@ -241,4 +308,49 @@
 			</div>	
 		</div>
 	</div>
+</template>
+
+<template name="inviteuser">
+			          
+	<div class="form_main col-md-4 col-sm-5 col-xs-7">
+        <h4 class="heading"><strong>Invite </strong> User (9 users)<span></span></h4>   
+        <table class="table table-hover">
+       		{{#if isInRole 'agency'}}
+			    <tbody>
+			      <tr>
+			        <td><b>Invite link:</b></td>
+			        <td><input type="text" name="link1" value="/register/affiliate/{{currentUser._id}}" style="width: 300px;"></td>
+			        <td>
+			        	<a href="/profile/edit/{{currentUser._id}}">
+			        	<span class="btn-label icon fa fa-edit"></span>edit
+			        	</a>
+			        </td>
+			      </tr>
+			    </tbody>
+		    {{/if}}
+		  </table>
+    </div>	            
+	<div class="form_main col-md-4 col-sm-5 col-xs-7">
+        <h4 class="heading"><strong>Invited </strong> Members<span></span></h4>   
+        <table class="table table-hover">
+       			<thead>
+       				<th>No</th>
+       				<th>Username</th>
+       				<th>Email</th>
+       				<th>Phone</th>
+       				<th>Action</th>
+       			</thead>
+			    <tbody>
+			    	{{#each GetuserInvite}}
+				      	<tr>
+				        	<td>{{index}}</td>
+				        	<td>{{profile.username}}</td>
+				        	<td>{{emails.[0].address}}</td>
+				        	<td>{{profile.phone}}</td>
+				        	<td class="btn-success btn-sm"><a href="#" >Active</a></td>
+				      	</tr>
+				    {{/each}}
+			    </tbody>
+		  </table>
+    </div>	
 </template>

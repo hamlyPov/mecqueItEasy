@@ -90,6 +90,7 @@ Template.userregister.events({
 	},
 	'click #btnregister':function(e){
 		e.preventDefault();
+		var affiliate = Router.current().params.id;
 		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
@@ -105,11 +106,12 @@ Template.userregister.events({
 			dob:dob,
 			phone:phone,
 			type:selecttype,
-			numpayment:numpayment
+			numpayment:numpayment,
+			affiliate:affiliate
 		}
 		Meteor.call("registerUser",email,password,obj,role,function(err){
 			if(!err){
-				Router.go("/user/profile")
+				Router.go("/user/profile");
 			}
 		});
 
@@ -133,6 +135,32 @@ Template.profile.helpers({
 		var id=Meteor.userId();
 		console.log(id);
 		return Meteor.users.findOne({_id:id});
+	},
+	CountInvite:function(){	
+		var id = Meteor.userId();	
+		return Meteor.users.find({'profile.affiliate':id}).count();
+	},
+	GenerateButton:function(){
+		var id = Meteor.userId();	
+		var result = Meteor.users.find({'profile.affiliate':id}).count();
+		if(result >= 5){
+			return true;
+		}else{
+			return false;
+		}
+	},
+	GetProduct:function(){
+		var result = product.find().map(function(document, index){
+			document.index = index+1;
+			return document;
+		});
+		return result;
+	},
+	getagencyname:function(id){
+		return Meteor.users.findOne({'_id':id}).profile.username;
+	},
+	GetallAgency:function(){
+		return Meteor.users.find({'roles':'agency'});
 	}
 });
 Template.editprofile.events({

@@ -157,3 +157,7 @@ input.error{
     background-color:rgb(255, 231, 231);
 }
 .error{color:red;}
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
