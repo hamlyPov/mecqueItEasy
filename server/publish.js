@@ -1,6 +1,6 @@
 
 Meteor.publish("users", function () {
-    return users.find();
+    return Meteor.users.find({});
 });
 
 Meteor.publish('images', function (){ 
@@ -22,4 +22,7 @@ Meteor.publish("oneCategory",function(id){
 
 Meteor.publish("article",function(){
   return article.find({});
+});
+Meteor.publish("allticket",function(){
+  return ticket.find({});
 });

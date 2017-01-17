@@ -1,0 +1,45 @@
+<template name="ticket">
+	<div id="content-wrapper">
+    	<table class="table table-bordered">
+                <thead>
+                <tr>
+                  <!--   <th style="width: 130px;">
+                    	<a class="btn btn-xs btn-labeled btn-success" href="/cpanel/category/add"><span class="btn-label icon fa fa-plus-square"></span>Add</a>
+                    </th> -->
+                    <th>Customer Name</th>
+                    <th>Agency Name</th>
+                    <th>Product</th>
+                    <th>date</th>
+                    <th>Invoice</th>
+                    <th>Status</th>
+                    <th>action</th>
+                   		
+                </tr>
+                </thead>
+                <tbody>
+                	{{#each getallTicket}}
+                        <tr>
+                           <!--  <td>
+                                <a class="btn btn-xs btn-labeled btn-success" href="/cpanel/category/edit/{{_id}}"><span
+                                        class="btn-label icon fa fa-edit"></span>U</a>
+                                <a  class="btn btn-xs btn-labeled btn-danger btn-del" href="#"><span
+                                        class="btn-label icon fa fa-minus-square"></span>D</a>
+                            </td> -->
+                            <td>{{getUsername customer}}</td>
+                            <td>{{getUsername agency}}</td>
+                            <td>{{product}}</td>
+                            <td>{{getHumanDate date}}</td>
+                            <td>{{invoice}}</td>
+                            <td>{{status}}</td>
+                            <td>
+                            	<a class="btn btn-xs btn-labeled btn-success" id="btnstatus" href=""><span class="btn-label icon fa fa-edit"></span>U</a>
+                            	<a class="btn btn-xs btn-labeled btn-success" id="uploadinvoice" href=""><span class="glyphicon glyphicon-upload"></span>upload invoice</a>
+                            </td>
+                            
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+	</div>
+	
+</template>
