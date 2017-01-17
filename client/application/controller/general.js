@@ -31,7 +31,7 @@ Template.registerHelper('getTaxiname', function(taxiId){
 	}
 });
 Template.registerHelper('getUsername', function(userId){
-	var username = users.findOne({'_id':userId});
+	var username = Meteor.users.findOne({'_id':userId});
 	if(username){
 		return username.profile.username;
 	}

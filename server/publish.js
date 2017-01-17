@@ -26,3 +26,6 @@ Meteor.publish("article",function(){
 Meteor.publish("product",function(){
   return product.find({});
 });
+Meteor.publish("allticket",function(){
+  return ticket.find({});
+});

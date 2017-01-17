@@ -69,9 +69,14 @@ Template.signin.events({
 
 Template.userregister.onRendered(function() {
     this.$('.datetimepicker').datetimepicker();
+    
 });
 
 Template.userregister.events({
+/*	"focus input":function(e){
+		e.preventDefault();
+		 $('#registerform').validate();
+	},*/
 	'click #btnnext':function(e){
 		e.preventDefault();
 		var username=$("#firstname").val();
