@@ -168,6 +168,9 @@ Template.profile.helpers({
 		return Meteor.users.find({'roles':'agency'});
 	}
 });
+Template.profile.onRendered(function(){
+    
+});
 Template.profile.events({
 	"click .booking":function(e){
 		e.preventDefault();
@@ -193,6 +196,18 @@ Template.profile.events({
 				console.log(err.reason);
 			}
 		});
+	},
+	"click #btn-passport":function(e){
+		e.preventDefault();
+		var id = Meteor.userId();
+		var passport = $('[name="passport"]').val();
+		if(passport == ''){
+			alert('passport can not empty');
+		}else{
+			Meteor.call('UpdatePassport',id, passport, function(err){
+				if(!err){console.log('UpdatePassport successfully')}
+			});
+		}
 	}
 });
 Template.editprofile.events({

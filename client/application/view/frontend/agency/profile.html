@@ -160,7 +160,8 @@
         </form>
       </div>
       <div class="modal-body">
-        <table class="table table-hover">
+      	{{#if currentUser.passport}}
+        	<table class="table table-hover">
        			<thead>
        				<th>No</th>
        				<th>Agency name</th>
@@ -181,12 +182,23 @@
 				      	</tr>
 				    {{/each}}
 			    </tbody>
-		  </table>
+		  	</table>
+		{{else}}
+			<h3 style="color:#ddd;text-align:center">Enter Your Passport Number below to activate your ticket</h3>
+			<form class="passvalidate">
+				<div class="col-md-2"></div>
+				<div class="col-md-2"><label for="usr">Passport Number:</label></div>
+				<div class="col-md-4">
+					<input type="text" class="form-control" name="passport">
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-primary" id="btn-passport">Save</button>
+				</div>
+				<div class="col-md-2"></div>
+			</form>
+		{{/if}}
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Fly</button>
-      </div>
+      <div class="modal-footer"></div>
     </div>
   </div>
 </div>
@@ -325,11 +337,6 @@
 			      <tr>
 			        <td><b>Invite link:</b></td>
 			        <td><input type="text" name="link1" value="/register/affiliate/{{currentUser._id}}" style="width: 300px;"></td>
-			        <td>
-			        	<a href="/profile/edit/{{currentUser._id}}">
-			        	<span class="btn-label icon fa fa-edit"></span>edit
-			        	</a>
-			        </td>
 			      </tr>
 			    </tbody>
 		    {{/if}}

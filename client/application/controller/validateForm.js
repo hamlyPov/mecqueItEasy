@@ -26,6 +26,9 @@ $.validator.setDefaults({
         },
         agree:{
         	required: true
-        }
+        },
+        passport: {
+    		required: true
+    	}
     }
 });

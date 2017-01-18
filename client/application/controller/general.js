@@ -36,3 +36,9 @@ Template.registerHelper('getUsername', function(userId){
 		return username.profile.username;
 	}
 });
+Template.registerHelper('getProductname', function(id){
+	var proname = product.findOne({'_id':id});
+	if(proname){
+		return proname.name;
+	}
+});
