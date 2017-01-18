@@ -168,6 +168,33 @@ Template.profile.helpers({
 		return Meteor.users.find({'roles':'agency'});
 	}
 });
+Template.profile.events({
+	"click .booking":function(e){
+		e.preventDefault();
+		var customer = Meteor.userId();
+		var product = this._id;
+		var agency = this.agency;
+		var date = Date.now();
+		var invoice = '';
+		var status = '';
+		var obj = {
+			customer: customer,
+			product:product,
+			agency:agency,
+			date:date,
+			invoice:invoice,
+			status:status
+		}
+		Meteor.call('SaveTicket',obj,function(err){
+			if(!err){
+				console.log('SaveTicket successfully');
+				Router.go('/ticket');
+			}else{
+				console.log(err.reason);
+			}
+		});
+	}
+});
 Template.editprofile.events({
 	'click #btneditprofile':function(e){
 		e.preventDefault();
