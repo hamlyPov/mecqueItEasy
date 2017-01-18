@@ -15,7 +15,7 @@ Template.adduser.events({
 });	
 Template.user.helpers({
 	GetUser:function(){
-		return users.find();
+		return Meteor.users.find();
 	},
 	Isadmin:function(roles){
 		if(roles == "admin"){

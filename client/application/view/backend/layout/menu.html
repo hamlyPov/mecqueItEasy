@@ -10,19 +10,15 @@
                 <li class="mm-dropdown open active">
                     <a><i class="menu-icon fa fa-files-o"></i><span class="mm-text">ADMIN_PAGES</span></a> 
                     <ul>
-                        {{#if isInRole 'member'}}
+                        {{#if isInRole 'admin'}}
                             <li >
                                 <a tabindex="-1" href="/cpanel/dashboad"><span class="mm-text">DASHBOAD</span></a>
                             </li>
                             <li >
                                 <a tabindex="-1" href="/cpanel/article"><span class="mm-text">ARTICLE ID</span></a>
                             </li>
-                        {{else}}
                             <li >
-                                <a tabindex="-1" href="/cpanel/dashboad"><span class="mm-text">DASHBOAD</span></a>
-                            </li>
-                            <li >
-                                <a tabindex="-1" href="/cpanel/article"><span class="mm-text">ARTICLE ID</span></a>
+                                <a tabindex="-1" href="/cpanel/user"><span class="mm-text">Users</span></a>
                             </li>
                         {{/if}}
                     </ul>
