@@ -10,11 +10,11 @@ Meteor.publish('images', function (){
   return images.find({});
 });
 
-/*Meteor.publish('orders', function (){ 
-  return orders.find({});
+/*Meteor.publish('users', function (){ 
+  return Meteor.users.find({});
 
-});*/
-
+});
+*/
 
 Meteor.publish('allcategory', function (){ 
   return categories.find({});
@@ -33,7 +33,14 @@ Meteor.publish("allticket",function(){
   return ticket.find({});
 });
 Meteor.publish("allticketByUser",function(uid){
-  return ticket.find({agency:uid});
+  var allticket= ticket.find({ $or: [ { agency:uid }, { customer: uid } ] });
+  var alluser=[]
+  allticket.forEach(function(val){
+    alluser.push(val.customer);
+    alluser.push(val.agency);
+  });
+  var listuser=Meteor.users.find({_id:{$in:alluser}})
+  return [allticket,listuser];
 });
 Meteor.publish("myAdminTicket",function(page,limit){
     //var limit = 4;
