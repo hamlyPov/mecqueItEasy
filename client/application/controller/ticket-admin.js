@@ -1,3 +1,20 @@
+
+Template.adminticket.onCreated(function bodyOnCreated() {
+    Tracker.autorun(function() {
+      var getpage=Session.get("CATEGORYDATA")
+       var page = getpage.page;
+       var limit=10;
+      Meteor.subscribe("myAdminTicket",page,limit)
+      Meteor.call('countTicket', function(err, count){
+                if(!err){
+                    //Session.set('TOTALPRODUCTS', count);
+                    $('#pagination').pagination({ items: count, itemsOnPage: limit, currentPage:page, hrefTextPrefix:'/cpanel/orders/', cssStyle: 'light-theme' });
+                   
+                }
+            })
+    });
+});
+
 Template.adminticket.helpers({
 	getallTicket:function () {
     var status=Session.get("TICKETSTATUS");
@@ -14,6 +31,13 @@ Template.adminticket.helpers({
     }else{
       return false;
     }
+  },
+  checkStatus:function(st){
+    if(st=="ready"){
+      return false;
+    }else{
+      return true;
+    }
   }
 });
 Template.adminticket.events({
@@ -22,6 +46,15 @@ Template.adminticket.events({
     var id=this._id;
     var status="ready"
     if(confirm("Are You Sure to update status to ready")){
+       Meteor.call("updateStaus",id,status);
+    }
+   
+  },
+  'click #btnstatuspending':function(e){
+    e.preventDefault();
+    var id=this._id;
+    var status="pending"
+    if(confirm("Are You Sure to update status to pending")){
        Meteor.call("updateStaus",id,status);
     }
    
