@@ -254,7 +254,7 @@ Template.profile.helpers({
 	},
 	GenerateButton:function(){
 		var id = Meteor.userId();	
-		var result = Meteor.users.find({'profile.affiliate':id}).count();
+		var result = Meteor.users.find({'profile.affiliate':id, 'roles':'affiliate'}).count();
 		if(result >= 5){
 			return true;
 		}else{

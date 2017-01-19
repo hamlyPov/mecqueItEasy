@@ -50,6 +50,6 @@ Meteor.publish("myAdminTicket",function(page,limit){
     return ticket.find({},{limit:limit, skip:skip})
 });
 
-Meteor.publish("GetInvitedUser",function(id){
+Meteor.publish("myprofile",function(id){
     return Meteor.users.find({'profile.affiliate':id});
 });

@@ -3,7 +3,7 @@ Template.frontmenu.events({
 		e.preventDefault();
 		Meteor.logout(function(res){
 			if(!res){
-				Router.go('/registertype');
+				Router.go('/login');
 			}
 		});
 	}

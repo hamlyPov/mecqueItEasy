@@ -12,7 +12,9 @@
 		                    </a>
 		                    <div class="media-body">
 		                        <h4 class="media-heading">{{currentUser.profile.username}}</h4>
+		                        {{#if isInRole 'affiliate'}}
 		                		<p><span class="label label-info">{{CountInvite}} invited</span> <span class="label label-warning">$3000 Total</span></p>
+		                		{{/if}}
 		                        <p>
 		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
 		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
@@ -334,14 +336,12 @@
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
         <h4 class="heading"><strong>Invite </strong> User (9 users)<span></span></h4>   
         <table class="table table-hover">
-       		{{#if isInRole 'agency'}}
 			    <tbody>
 			      <tr>
 			        <td><b>Invite link:</b></td>
 			        <td><input type="text" name="link1" value="/register/affiliate/{{currentUser._id}}" style="width: 300px;"></td>
 			      </tr>
 			    </tbody>
-		    {{/if}}
 		  </table>
     </div>	            
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
