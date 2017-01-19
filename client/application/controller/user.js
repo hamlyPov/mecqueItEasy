@@ -350,7 +350,9 @@ Template.changepassword.events({
 		var newpwd=$("#newpwd").val();
 		var renewpwd=$("#newpwd2").val();
 		if(newpwd==renewpwd){
-			Meteor.call("changepassword",userid,newpwd);
+			Meteor.call("changepassword",userid,newpwd,function(err){
+				if(!err){Router.go('/login')}
+			});
 		}else{
 			alert("Your password is not match")
 		}

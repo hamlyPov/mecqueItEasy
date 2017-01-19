@@ -123,7 +123,9 @@
 					    {{/if}}
 					  </table>
 		        </div>	
-		        {{>inviteuser}}            
+		        {{#if isInRole 'affiliate'}}
+		        	{{>inviteuser}}            
+		        {{/if}}
 			</div>	
 		</div>
 	</div>
@@ -213,7 +215,7 @@
 					</div>
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">
-							<span class="hidden-xs">Hareesh Vudari</span>
+							<span class="hidden-xs">Welcome To Our System</span>
 						</div>
 						<div class="profile-usertitle-job">
 						</div>
