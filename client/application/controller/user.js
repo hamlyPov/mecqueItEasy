@@ -1,21 +1,72 @@
+Template.adduser.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
+});
 Template.adduser.events({
 	"click #btn-save": function(e){
 		e.preventDefault();
+		var obj = '';
 		var name = $("[name='name']").val();
+		var phone = $("[name='phone']").val();
 		var email = $("[name='email']").val();
 		var password = $("[name='password']").val();
-		var roles = $("[name='permission'] option:selected").val();
+		var userRoles = $("#roles option:selected").val();
+		// Agency Field
+			var siret_num = $("[name='siretnum']").val();
+			var contact_name = $("[name='contactname']").val();
+			var address = $("[name='address']").val();
+			var time = Date.now();
+		// Affiliate Field
+			var familyname = $("[name='familyname']").val();
+			var dob = $("[name='dob']").val();
+			var userType = $("[name='usertype']").val();
+			var numpayment = $("[name='numpayment']").val();					
+			var affiliate = $("[name='affiliate']").val();
 		
-		Meteor.call("InsertUser",name, email, password, roles, function(res){
-			if(!res){
-				alert("insert section successfully!!!!!!!");
-				Router.go('/cpanel/user');			}
-		});
+		if(userRoles == 'affiliate'){
+			obj = {
+				username:name,familyname:familyname,dob:dob,phone:phone,type:userType,numpayment:numpayment,affiliate:affiliate
+			}
+		}else if(userRoles == 'agency'){
+			obj = {
+				username:name,siret_num:siret_num,contact_name:contact_name,phone:phone,address:address,time:time
+			}
+		}
+		if(userRoles != 'none'){
+			Meteor.call("InsertUser",obj, email, password, userRoles, function(res){
+				if(!res){
+					//alert("insert section successfully!!!!!!!");
+					Router.go('/cpanel/user');			
+				}
+			});
+		}else{alert('select roles!!!')}
+	},
+	"change #roles":function(e){
+		var roles = $('#roles option:selected').val();
+		Session.set('ROLESVALUE',roles);
 	}
 });	
+Template.adduser.helpers({
+	CheckRoles:function(){
+		var roles = Session.get('ROLESVALUE');
+		if(roles == 'agency'){
+			return true;
+		}else if(roles == 'affiliate'){return false;}
+	}
+});
 Template.user.helpers({
 	GetUser:function(){
-		return Meteor.users.find();
+		var type = Session.get('TYPEVALUE');
+		if(type){
+			if(type == "admin"){
+				return Meteor.users.find({'roles':'admin'},{sort:{'createdAt':-1}});
+			}else if(type == "agency"){
+				return Meteor.users.find({'roles':'agency'},{sort:{'createdAt':-1}});
+			}else if(type == "affiliate"){
+				return Meteor.users.find({'roles':'affiliate'},{sort:{'createdAt':-1}});
+			}else{
+				return Meteor.users.find({},{sort:{'createdAt':-1}});
+			}
+		}else{return Meteor.users.find({},{sort:{'createdAt':-1}});Session.set('TYPEVALUE',undefined);}
 	},
 	Isadmin:function(roles){
 		if(roles == "admin"){
@@ -29,24 +80,63 @@ Template.user.events({
 		if(confirm("Are you sure want to delete this???")){
 			Meteor.call("RemoveUser",this._id);
 		}
+	},
+	"change #usertype":function(e){
+		e.preventDefault();
+		var type = $('#usertype option:selected').val();
+		Session.set('TYPEVALUE',type);
 	}
 });
+Template.useredit.onRendered(function(){
+	this.$('.datetimepicker').datetimepicker();
+})
 Template.useredit.events({
 	"click #btn-update": function(e){
 		e.preventDefault();
 		var id = $("[name='userid']").val();
 		var name = $("[name='name']").val();
 		var email = $("[name='email']").val();
-		//var password = $("[name='password']").val();
+		var phone = $("[name='phone']").val();
+		var userRoles = $("[name='userRoles']").val();
+		var obj = '';
+		// Agency Field
+			var siret_num = $("[name='siretnum']").val();
+			var contact_name = $("[name='contactname']").val();
+			var address = $("[name='address']").val();
+			var time = $("[name='time']").val();
+		// Affiliate Field
+			var familyname = $("[name='familyname']").val();
+			var dob = $("[name='dob']").val();
+			var userType = $("[name='usertype']").val();
+			var numpayment = $("[name='numpayment']").val();					
+			var affiliate = $("[name='affiliate']").val();
+		
+		if(userRoles == 'affiliate'){
+			obj = {
+				username:name,familyname:familyname,dob:dob,phone:phone,type:userType,numpayment:numpayment,affiliate:affiliate
+			}
+		}else if(userRoles == 'agency'){
+			obj = {
+				username:name,siret_num:siret_num,contact_name:contact_name,phone:phone,address:address,time:time
+			}
+		}
+			
 		var roles = $("[name='permission'] option:selected").val();
-		Meteor.call("UpdateUser",id, name, email, roles, function(res){
+		Meteor.call("UpdateUser",id, obj, email, roles, function(res){
 			if(!res){
 				alert("Update User successfully!!!!!!!");
 				Router.go('/cpanel/user');			}
 		});
 	}
 });	
-
+Template.useredit.helpers({
+	IstypeAgency:function(type){
+		if(type == "agency"){return true}
+	},
+	IstypeAffiliate:function(type){
+		if(type == "affiliate"){return true}
+	}
+})
 Template.signin.events({
 	"click #btn-signin":function(e){
 		e.preventDefault();

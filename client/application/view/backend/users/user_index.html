@@ -5,11 +5,26 @@
 		        <div class="col-sm-12">
 
 		            <div class="table-light">
-		                <div class="table-header">
-		                    <div class="table-caption">
-		                        USER LIST
-		                    </div>
-		                </div>
+		                <div class="table-header2">
+		                	<div class="col-sm-4">
+		                		 <b style="color:red">USERS LIST:</b>
+			                </div>
+		                	<div class="col-sm-2">
+			                	<div class="table-caption">
+			                        <b>FILER:</b>
+			                    </div>
+			                </div>
+	                        <div class="col-sm-6">
+		                        <div class="form-group">
+			                    	<select class="form-control" id="usertype">
+									    <option value="none">Select User Type</option>
+									    <option value="admin">Admin</option>
+									    <option value="agency">Agency</option>
+									    <option value="affiliate">Affiliate</option>
+									</select>
+			                    </div>
+			                </div>
+		                </div>	
 		                <table class="table table-bordered">
 		                    <thead>
 		                    <tr>
@@ -21,7 +36,7 @@
 		                        <th style="width: 100px;">Roles</th>
 		                    </tr>
 		                    </thead>
-		                    <tbody>
+		                    <tbody id="data-user">
 		                    	{{#each GetUser}}
 		                            <tr>
 		                                <td>

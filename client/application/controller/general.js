@@ -42,3 +42,14 @@ Template.registerHelper('getProductname', function(id){
 		return proname.name;
 	}
 });
+Template.registerHelper('Istype1', function(type){
+	if(type == 'admin'){
+		return true;
+	}else{
+		if(type == 'agency'){
+			return true;
+		}else{
+			return true;
+		}
+	}
+});
