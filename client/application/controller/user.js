@@ -15,7 +15,7 @@ Template.adduser.events({
 });	
 Template.user.helpers({
 	GetUser:function(){
-		return users.find();
+		return Meteor.users.find();
 	},
 	Isadmin:function(roles){
 		if(roles == "admin"){
@@ -166,6 +166,48 @@ Template.profile.helpers({
 	},
 	GetallAgency:function(){
 		return Meteor.users.find({'roles':'agency'});
+	}
+});
+Template.profile.onRendered(function(){
+    
+});
+Template.profile.events({
+	"click .booking":function(e){
+		e.preventDefault();
+		var customer = Meteor.userId();
+		var product = this._id;
+		var agency = this.agency;
+		var date = Date.now();
+		var invoice = '';
+		var status = '';
+		var obj = {
+			customer: customer,
+			product:product,
+			agency:agency,
+			date:date,
+			invoice:invoice,
+			status:status
+		}
+		Meteor.call('SaveTicket',obj,function(err){
+			if(!err){
+				console.log('SaveTicket successfully');
+				Router.go('/ticket');
+			}else{
+				console.log(err.reason);
+			}
+		});
+	},
+	"click #btn-passport":function(e){
+		e.preventDefault();
+		var id = Meteor.userId();
+		var passport = $('[name="passport"]').val();
+		if(passport == ''){
+			alert('passport can not empty');
+		}else{
+			Meteor.call('UpdatePassport',id, passport, function(err){
+				if(!err){console.log('UpdatePassport successfully')}
+			});
+		}
 	}
 });
 Template.editprofile.events({

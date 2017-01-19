@@ -5,5 +5,8 @@ Meteor.methods({
 	updateInvoice:function(id,invoice){
 		var status="pending"
 		return ticket.update({_id:id},{$set:{invoice:invoice,status:status}})
+	},
+	SaveTicket:function(obj){
+		ticket.insert(obj);
 	}
 });
