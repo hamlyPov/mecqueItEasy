@@ -160,13 +160,13 @@ Template.signin.events({
 
 		var email = $("[name='email']").val();
 		var password = $("[name='password']").val();
-		//var user = Meteor.user();
-		//var roles = user.roles[0];
-		//alert('login'+email+password);
-		//console.log("roles== "+user.roles[0]);
 		Meteor.loginWithPassword(email, password, function(res){
-		    if(!res){	    	
-			    Router.go('/cpanel/dashboad');		    	
+		    if(!res){	
+		    	if(Roles.userIsInRole(Meteor.userId(), ['agency'])||Roles.userIsInRole(Meteor.userId(), ['affiliate'])){
+		    		Router.go("/user/profile")
+		    	}else { 	
+			    	Router.go('/cpanel/dashboad');		 
+			    }   	
 		    }else{
 		    	alert("your email and password Invalid!!!");
 		    }
