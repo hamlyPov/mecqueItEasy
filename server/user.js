@@ -37,5 +37,8 @@ Meteor.methods({
     countUser:function(){
         var alluser=Meteor.users.find({});
         return alluser.count();
+    },
+    changepassword:function(uid,newpwd){
+         Accounts.setPassword(uid,newpwd)
     }
 });

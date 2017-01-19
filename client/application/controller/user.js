@@ -252,3 +252,18 @@ Template.editprofile.events({
 Template.editprofile.onRendered(function() {
     this.$('.datetimepicker').datetimepicker();
 });
+
+Template.changepassword.events({
+	'click #btnchangepwd':function(e){
+		e.preventDefault();
+		var userid=Meteor.userId();
+		var newpwd=$("#newpwd").val();
+		var renewpwd=$("#newpwd2").val();
+		if(newpwd==renewpwd){
+			Meteor.call("changepassword",userid,newpwd);
+		}else{
+			alert("Your password is not match")
+		}
+		
+	}
+});
