@@ -3,7 +3,7 @@ Template.adminticket.onCreated(function bodyOnCreated() {
     Tracker.autorun(function() {
       var getpage=Session.get("CATEGORYDATA")
        var page = getpage.page;
-       var limit=10;
+       var limit=20;
       Meteor.subscribe("myAdminTicket",page,limit)
       Meteor.call('countTicket', function(err, count){
                 if(!err){
