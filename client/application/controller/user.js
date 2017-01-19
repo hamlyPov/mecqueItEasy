@@ -1,6 +1,23 @@
+
 Template.adduser.onRendered(function() {
     this.$('.datetimepicker').datetimepicker();
 });
+Template.user.onCreated(function bodyOnCreated() {
+    Tracker.autorun(function() {
+      var getpage=Session.get("CATEGORYDATA")
+       var page = getpage.page;
+       var limit=20;
+      Meteor.subscribe("myUserPagination",page,limit)
+      Meteor.call('countUser', function(err, count){
+                if(!err){
+                    //Session.set('TOTALPRODUCTS', count);
+                    $('#pagination').pagination({ items: count, itemsOnPage: limit, currentPage:page, hrefTextPrefix:'/cpanel/orders/', cssStyle: 'light-theme' });
+                   
+                }
+            })
+    });
+});
+
 Template.adduser.events({
 	"click #btn-save": function(e){
 		e.preventDefault();

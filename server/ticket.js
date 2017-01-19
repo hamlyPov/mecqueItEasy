@@ -8,5 +8,8 @@ Meteor.methods({
 	},
 	SaveTicket:function(obj){
 		ticket.insert(obj);
+	},
+	countTicket:function(){
+		return ticket.find({}).count();
 	}
 });

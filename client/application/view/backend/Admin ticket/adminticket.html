@@ -73,8 +73,13 @@
 
 		                                <td>{{status}}</td>
 		                                <td>
+		                                	{{#if checkStatus status}}
 		                                    <a class="btn btn-xs btn-labeled btn-success" id="btnstatus" href=""><span class="glyphicon glyphicon-upload"></span>update status</a>
+		                                    {{else}}
+		                                     <a class="btn btn-xs btn-labeled btn-success" id="btnstatuspending" href=""><span class="glyphicon glyphicon-upload"></span>update status</a>
+		                                    {{/if}}
 		                                     <a class="btn btn-xs btn-labeled btn-danger" id="btnremove" href=""><span  class="glyphicon glyphicon-remove"></span>delete</a>
+		                                    
 		                                </td>
 		                            
 		                            </tr>
@@ -84,13 +89,16 @@
 
 		                <div class="table-footer clearfix">
 		                    <div class="DT-label">
-		                        <div class="dataTables_info" id="jq-datatables-example_info" role="alert" aria-live="polite"
+		                       <!--  <div class="dataTables_info" id="jq-datatables-example_info" role="alert" aria-live="polite"
 		                             aria-relevant="all">Showing 1 to 5 of 5 entries
-		                        </div>
+		                        </div> -->
 		                    </div>
 		                    <div class="DT-pagination">
 		                        <div class="dataTables_paginate paging_simple_numbers" id="jq-datatables-example_paginate">
-		                            <ul class="pagination"> </ul>
+		                            <ul id="pagination" class="pagination pagination-sm">
+		                            <!-- <li>Next</li>
+		                            <li>Prev</li> -->
+		                            </ul>
 		                        </div>
 		                    </div>
 		                </div>
@@ -100,4 +108,17 @@
 		</div>    
 	</div>
     <div id="main-menu-bg"></div>
+    <style type="text/css">
+	  /*#pagination{
+	  	float: left;
+	  	text-align: right;
+	  }
+	  ul#pagination li{
+	  	display: inline-block;
+	  	padding: 4px;
+	  }
+	   ul#pagination li.active{
+	   	background-color: #7985BA;
+	   }*/
+  </style>
 </template>

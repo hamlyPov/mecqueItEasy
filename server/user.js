@@ -31,5 +31,9 @@ Meteor.methods({
             profile: obj
         });
         Roles.setUserRoles(targetUserId,roles);
+    },
+    countUser:function(){
+        var alluser=Meteor.users.find({});
+        return alluser.count();
     }
 });

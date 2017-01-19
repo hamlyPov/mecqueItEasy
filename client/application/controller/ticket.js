@@ -44,6 +44,10 @@ Template.ticket.helpers({
     var uid=Meteor.userId();
 		return ticket.find({agency:uid});
 	},
+  getallTicketCustomer:function(){
+    var uid=Meteor.userId();
+    return ticket.find({customer:uid});
+  },
   checkInvoice:function(invoice){
     if(invoice){
       return true;
