@@ -2,12 +2,12 @@ Template.ticket.onCreated(function() {
     Meteor.Loader.loadJs("//api.filestackapi.com/filestack.js");
 });
 Template.ticket.events({
-	'click #btnstatus':function(e){
+	/*'click #btnstatus':function(e){
 		e.preventDefault();
 		var id=this._id;
 		var status="validate"
 		Meteor.call("updateStaus",id,status);
-	},
+	},*/
 	"click #uploadinvoice":function(e){
 		e.preventDefault();
 		var ticketid=this._id;
@@ -41,6 +41,14 @@ Template.ticket.events({
 });
 Template.ticket.helpers({
 	getallTicket:function () {
-		return ticket.find({});
-	}
+    var uid=Meteor.userId();
+		return ticket.find({agency:uid});
+	},
+  checkInvoice:function(invoice){
+    if(invoice){
+      return true;
+    }else{
+      return false;
+    }
+  }
 });

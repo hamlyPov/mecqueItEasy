@@ -3,6 +3,7 @@ Meteor.methods({
 		return ticket.update({_id:id},{$set:{status:status}});
 	},
 	updateInvoice:function(id,invoice){
-		return ticket.update({_id:id},{$set:{invoice:invoice}})
+		var status="pending"
+		return ticket.update({_id:id},{$set:{invoice:invoice,status:status}})
 	}
 });

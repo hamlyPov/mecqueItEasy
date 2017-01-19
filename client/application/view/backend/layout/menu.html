@@ -10,21 +10,23 @@
                 <li class="mm-dropdown open active">
                     <a><i class="menu-icon fa fa-files-o"></i><span class="mm-text">ADMIN_PAGES</span></a> 
                     <ul>
-                        {{#if isInRole 'member'}}
-                            <li >
-                                <a tabindex="-1" href="/cpanel/dashboad"><span class="mm-text">DASHBOAD</span></a>
-                            </li>
-                            <li >
-                                <a tabindex="-1" href="/cpanel/article"><span class="mm-text">ARTICLE ID</span></a>
-                            </li>
-                        {{else}}
-                            <li >
-                                <a tabindex="-1" href="/cpanel/dashboad"><span class="mm-text">DASHBOAD</span></a>
-                            </li>
-                            <li >
-                                <a tabindex="-1" href="/cpanel/article"><span class="mm-text">ARTICLE ID</span></a>
-                            </li>
-                        {{/if}}
+                       
+                        <li >
+                            <a tabindex="-1" href="/cpanel/dashboad"><span class="mm-text">DASHBOAD</span></a>
+                        </li>
+                        <li >
+                            <a tabindex="-1" href="/cpanel/article"><span class="mm-text">ARTICLE ID</span></a>
+                        </li>
+                         <li >
+                            <a tabindex="-1" href="/cpanel/ticket"><span class="mm-text">ALL TICKET</span></a>
+                        </li>
+                        <li >
+                            <a tabindex="-1" href="/cpanel/affiliate"><span class="mm-text">AFFILIATE USER</span></a>
+                        </li>
+                        <li >
+                            <a tabindex="-1" href="/cpanel/agency"><span class="mm-text">AGENCY USER</span></a>
+                        </li>
+                       
                     </ul>
                 </li>
             </ul> <!-- / .navigation -->

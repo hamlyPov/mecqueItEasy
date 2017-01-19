@@ -22,6 +22,7 @@
                                 <td>{{getUsername agency}}</td>
                                 <td>{{product}}</td>
                                 <td>{{getHumanDate date}}</td>
+                                {{#if checkInvoice invoice}}
                                 <td><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-eye-open"></span></a>
                                  <!--MODAL POPUP-->
                                      <div class="modal fade" id="myModal" role="dialog">
@@ -43,10 +44,15 @@
                                 <!--END MODAL-->
 
                                 </td>
+                                {{else}}
+                                    <td>
+                                        <a href="#" title="No Invoice"><span class="glyphicon glyphicon-remove"></span></a>
+                                    </td>
+                                {{/if}}
 
                                 <td>{{status}}</td>
                                 <td>
-                                    <a class="btn btn-xs btn-labeled btn-success" id="btnstatus" href=""><span class="btn-label icon fa fa-edit"></span>U</a>
+                                   <!--  <a class="btn btn-xs btn-labeled btn-success" id="btnstatus" href=""><span class="btn-label icon fa fa-edit"></span>U</a> -->
                                     <a class="btn btn-xs btn-labeled btn-success" id="uploadinvoice" href=""><span class="glyphicon glyphicon-upload"></span>upload invoice</a>
                                 </td>
                             

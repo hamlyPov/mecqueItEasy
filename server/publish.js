@@ -29,3 +29,6 @@ Meteor.publish("product",function(){
 Meteor.publish("allticket",function(){
   return ticket.find({});
 });
+Meteor.publish("allticketByUser",function(uid){
+  return ticket.find({agency:uid});
+});
