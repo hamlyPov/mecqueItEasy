@@ -286,7 +286,7 @@ Template.profile.events({
 		var agency = this.agency;
 		var date = Date.now();
 		var invoice = '';
-		var status = '';
+		var status = 'new';
 		var obj = {
 			customer: customer,
 			product:product,
