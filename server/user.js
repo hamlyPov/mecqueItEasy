@@ -19,10 +19,7 @@ Meteor.methods({
         return Meteor.users.update({_id:id},{$set: attr});
 	},
     UpdatePassport:function(id,passport){
-        var attr = {
-            passport:passport
-        }
-        return Meteor.users.update({'_id':id},{$set:attr});
+        return Meteor.users.update({'_id':id},{$set:{'profile.passport':passport}});
     },
     registerUser:function(email,password,obj,roles){
         targetUserId = Accounts.createUser({

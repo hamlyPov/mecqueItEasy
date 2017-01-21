@@ -131,81 +131,81 @@
 			</div>	
 		</div>
 	</div>
-<!-- Popup Modal Ticket -->
+	<!-- Popup Modal Ticket -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <form>
-	        <div class="form-group">
-	        	<div class="col-md-6">
-	        		<div class="col-md-2"><label for="sel1">Agency:</label></div>
-	        		<div class="col-md-10">
-						<select class="form-control" id="selagency">
-							{{#each GetallAgency}}
-						    	<option value="_id">{{profile.username}}, {{emails.[0].address}}</option>
-							{{/each}}
-						</select>
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <form>
+		        <div class="form-group">
+		        	<div class="col-md-6">
+		        		<div class="col-md-2"><label for="sel1">Agency:</label></div>
+		        		<div class="col-md-10">
+							<select class="form-control" id="selagency">
+								{{#each GetallAgency}}
+							    	<option value="_id">{{profile.username}}, {{emails.[0].address}}</option>
+								{{/each}}
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
-	        		<div class="col-md-2"><label for="sel1">Time:</label></div>
-	        		<div class="col-md-10">
-						  <select class="form-control" id="sel1">
-						    <option>1</option>
-						    <option>2</option>
-						    <option>3</option>
-						    <option>4</option>
-						  </select>
+					<div class="col-md-6">
+		        		<div class="col-md-2"><label for="sel1">Time:</label></div>
+		        		<div class="col-md-10">
+							  <select class="form-control" id="sel1">
+							    <option>1</option>
+							    <option>2</option>
+							    <option>3</option>
+							    <option>4</option>
+							  </select>
+						</div>
 					</div>
-				</div>
-	        </div>
-        </form>
-      </div>
-      <div class="modal-body">
-      	{{#if currentUser.passport}}
-        	<table class="table table-hover">
-       			<thead>
-       				<th>No</th>
-       				<th>Agency name</th>
-       				<th>description</th>
-       				<th>date_of_departure</th>
-       				<th>date_of_return</th>
-       				<th>Action</th>
-       			</thead>
-			    <tbody>
-			    	{{#each GetProduct}}
-				      	<tr>
-				        	<td>{{index}}</td>
-				        	<td>{{getagencyname agency}}</td>
-				        	<td>{{description}}</td>
-				        	<td>{{date_of_departure}}</td>
-				        	<td>{{date_of_return}}</td>
-				        	<td><input type="button" name="book" value="Book" class="btn-success btn-sm booking"></td>
-				      	</tr>
-				    {{/each}}
-			    </tbody>
-		  	</table>
-		{{else}}
-			<h3 style="color:#ddd;text-align:center">Enter Your Passport Number below to activate your ticket</h3>
-			<form class="passvalidate">
-				<div class="col-md-2"></div>
-				<div class="col-md-2"><label for="usr">Passport Number:</label></div>
-				<div class="col-md-4">
-					<input type="text" class="form-control" name="passport">
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary" id="btn-passport">Save</button>
-				</div>
-				<div class="col-md-2"></div>
-			</form>
-		{{/if}}
-      </div>
-      <div class="modal-footer"></div>
-    </div>
-  </div>
-</div>
+		        </div>
+	        </form>
+	      </div>
+	      <div class="modal-body">
+	      	{{#if currentUser.profile.passport}}
+	        	<table class="table table-hover">
+	       			<thead>
+	       				<th>No</th>
+	       				<th>Agency name</th>
+	       				<th>description</th>
+	       				<th>date_of_departure</th>
+	       				<th>date_of_return</th>
+	       				<th>Action</th>
+	       			</thead>
+				    <tbody>
+				    	{{#each GetProduct}}
+					      	<tr>
+					        	<td>{{index}}</td>
+					        	<td>{{getagencyname agency}}</td>
+					        	<td>{{description}}</td>
+					        	<td>{{date_of_departure}}</td>
+					        	<td>{{date_of_return}}</td>
+					        	<td><input type="button" name="book" value="Book" class="btn-success btn-sm booking"></td>
+					      	</tr>
+					    {{/each}}
+				    </tbody>
+			  	</table>
+			{{else}}
+				<h3 style="color:#ddd;text-align:center">Enter Your Passport Number below to activate your ticket</h3>
+				<form class="passvalidate">
+					<div class="col-md-2"></div>
+					<div class="col-md-2"><label for="usr">Passport Number:</label></div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" name="passport">
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-primary" id="btn-passport">Save</button>
+					</div>
+					<div class="col-md-2"></div>
+				</form>
+			{{/if}}
+	      </div>
+	      <div class="modal-footer"></div>
+	    </div>
+	  </div>
+	</div>
 </template>
 
 <template name="profilemenu">
@@ -239,6 +239,13 @@
 								<i class="glyphicon glyphicon-user"></i>
 								<span class="hidden-xs">List Ticket</span> </a>
 							</li>
+							{{#if isInRole 'affiliate'}}
+								<li>
+									<a href="/agency/product">
+									<i class="glyphicon glyphicon-ok"></i>
+									<span class="hidden-xs">product</span></a>
+								</li>
+							{{/if}}
 							<li>
 								<a href="#">
 								<i class="glyphicon glyphicon-ok"></i>
@@ -348,11 +355,13 @@
         <h4 class="heading"><strong>Invited </strong> Members<span></span></h4>   
         <table class="table table-hover">
        			<thead>
-       				<th>No</th>
-       				<th>Username</th>
-       				<th>Email</th>
-       				<th>Phone</th>
-       				<th>Action</th>
+       				<tr class="btn-primary">
+	       				<th>No</th>
+	       				<th>Username</th>
+	       				<th>Email</th>
+	       				<th>Phone</th>
+	       				<th>Action</th>
+	       			</tr>
        			</thead>
 			    <tbody>
 			    	{{#each GetuserInvite}}

@@ -262,7 +262,7 @@ Template.profile.helpers({
 		}
 	},
 	GetProduct:function(){
-		var result = product.find().map(function(document, index){
+		var result = product.find({}).map(function(document, index){
 			document.index = index+1;
 			return document;
 		});
@@ -272,7 +272,11 @@ Template.profile.helpers({
 		return Meteor.users.findOne({'_id':id}).profile.username;
 	},
 	GetallAgency:function(){
-		return Meteor.users.find({'roles':'agency'});
+		return Meteor.users.find({'roles':'affiliate'});
+	},
+	Ispassport:function(passport){
+		console.log('passport== '+passport);
+		if (passport) {return true}else{return false}
 	}
 });
 Template.profile.onRendered(function(){
