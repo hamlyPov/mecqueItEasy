@@ -26,8 +26,8 @@ Meteor.publish("oneCategory",function(id){
 Meteor.publish("article",function(){
   return article.find({});
 });
-Meteor.publish("product",function(){
-  return product.find({});
+Meteor.publish("product",function(id){
+  return product.find({'agency':id});
 });
 Meteor.publish("allticket",function(){
   return ticket.find({});

@@ -98,3 +98,97 @@ Template.editprofile.events({
 		});
 	}
 });
+
+Template.agencyproduct.helpers({
+	getallProduct:function(){
+		var result = product.find({}).map(function(document, index){
+			document.index = index+1;
+			return document;
+		});
+		return result;
+	}
+});
+Template.agencyproduct.events({
+	'click .del':function(e){
+		e.preventDefault();
+		if(confirm('Are you sure want to delete this?')){
+			Meteor.call('RemoveProduct',this._id);
+		}
+	}
+});
+Template.agencyaddproduct.onRendered(function(){
+	this.$('.dod').datetimepicker();
+	this.$('.dor').datetimepicker();
+});
+Template.agencyaddproduct.events({
+	"click #btn-save":function(e){
+		e.preventDefault();
+		var html = '';
+		var agency = Meteor.userId();
+		var name = $('[name="name"]').val();
+		var description = $('[name="description"]').val();
+		var date_of_departure = $('[name="dod"]').val();
+			date_of_departure = Date.now();
+		var date_of_return = $('[name="dor"]').val();
+			date_of_return = Date.now();
+		var obj = {
+			agency:agency,
+			name:name,
+			description:description,
+			date_of_departure:date_of_departure,
+			date_of_return:date_of_return
+		}
+		if(agency == '' || description == '' || date_of_departure == '' || date_of_return == ''){
+			html += '<div class="alert alert-danger">';
+                html += '<strong>All Fields!</strong> can not empty please fill it.';
+            html += '</div>';
+            $('#msg-error').append(html);
+		}else{
+			Meteor.call('InsertProduct',obj, function(error){
+				if(!error){
+					console.log('InsertProduct Successfully');
+					Router.go('/agency/product');
+				}
+			});
+		}
+	}
+});
+Template.agencyeditproduct.onRendered(function(){
+	this.$('.dod').datetimepicker();
+	this.$('.dor').datetimepicker();
+});
+Template.agencyeditproduct.events({
+	"click #btn-update":function(e){
+		e.preventDefault();
+		var html = '';
+		var id = this._id;
+		alert(id);
+		var agency = Meteor.userId();
+		var name = $('[name="name"]').val();
+		var description = $('[name="description"]').val();
+		var date_of_departure = $('[name="dod"]').val();
+			date_of_departure = Date.now();
+		var date_of_return = $('[name="dor"]').val();
+			date_of_return = Date.now();
+		var obj = {
+			agency:agency,
+			name:name,
+			description:description,
+			date_of_departure:date_of_departure,
+			date_of_return:date_of_return
+		}
+		if(agency == '' || description == '' || date_of_departure == '' || date_of_return == ''){
+			html += '<div class="alert alert-danger">';
+                html += '<strong>All Fields!</strong> can not empty please fill it.';
+            html += '</div>';
+            $('#msg-error').append(html);
+		}else{
+			Meteor.call('UpdateProduct',id,obj, function(error){
+				if(!error){
+					console.log('UpdateProduct Successfully');
+					Router.go('/agency/product');
+				}
+			});
+		}
+	}
+});
