@@ -19,7 +19,8 @@ Template.agency.events({
 		var username = $('[name="username"]').val();
 		var email = $('[name="email"]').val();
 		var siret_num = $('[name="siretnum"]').val();
-		var contact_name = $('[name="contactname"]').val();
+		var contact_firstname = $('[name="firstname"]').val();
+		var contact_lastname = $('[name="lastname"]').val();
 		var phone = $('[name="phone"]').val();
 		var address = $('[name="address"]').val();
 		var password = $('[name="password"]').val();
@@ -27,14 +28,15 @@ Template.agency.events({
 		var timestamp = Date.now();
 		var obj = {
 			username:username,
+			contact_firstname:contact_firstname,
+        	contact_lastname:contact_lastname,
         	siret_num:siret_num,
-        	contact_name:contact_name,
         	phone:phone,
         	address:address,
         	time:timestamp
 		}
 		
-		if(username == "" || email == "" || siret_num == "" || contact_name == "" || phone == "" || address == "" || password == ""){
+		if(username == "" || email == "" || siret_num == "" || phone == "" || address == "" || contact_firstname == "" || contact_lastname == "" || password == ""){
 			html += '<div class="alert alert-danger">';
 			  	html += '<strong>Input Field!</strong> can not be empty.';
 			html += '</div>';
@@ -46,8 +48,11 @@ Template.agency.events({
 					if(error){
 						console.log('error: '+error.reason);
 					}else{
-						console.log('RegisterAgency Successfully');
-						Router.go('/signin');
+						Meteor.loginWithPassword(email, password, function(res){
+						    if(!res){	
+						    	Router.go('/user/profile');		 
+						    } 
+						});
 					}
 				});
 			}else{
@@ -72,30 +77,40 @@ Template.agency.events({
 Template.editprofile.events({
 	"click #btn-update": function(e){
 		e.preventDefault();
+		var html = '';
 		var id = $('[name="profileId"]').val();
 		var username = $('[name="username"]').val();
 		var email = $('[name="email"]').val();
 		var siret_num = $('[name="siretnum"]').val();
-		var contact_name = $('[name="contactname"]').val();
+		var contact_firstname = $('[name="firstname"]').val();
+		var contact_lastname = $('[name="lastname"]').val();
 		var phone = $('[name="phone"]').val();
 		var address = $('[name="address"]').val();
 		var timestamp = $('[name="timestamp"]').val();
 		var obj = {
 			username:username,
+			contact_firstname:contact_firstname,
+			contact_lastname:contact_lastname,
         	siret_num:siret_num,
-        	contact_name:contact_name,
         	phone:phone,
         	address:address,
         	time:timestamp
 		}
-		Meteor.call('UpdateProfile',id,email,obj,function(error, response){
-			if(error){
-				console.log('error: '+error.reason);
-			}else{
-				console.log('UpdateProfile Successfully');
-				Router.go('/profile');
-			}
-		});
+		if(username == "" || email == "" || siret_num == "" || phone == "" || address == "" || contact_firstname == "" || contact_lastname == ""){
+			html += '<div class="alert alert-danger">';
+			  	html += '<strong>Input Field!</strong> can not be empty.';
+			html += '</div>';
+			$('#msg-error').append(html);
+		}else{
+			Meteor.call('UpdateProfile',id,email,obj,function(error, response){
+				if(error){
+					console.log('error: '+error.reason);
+				}else{
+					console.log('UpdateProfile Successfully');
+					Router.go('/user/profile');
+				}
+			});
+		}
 	}
 });
 

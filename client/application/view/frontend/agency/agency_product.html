@@ -4,11 +4,11 @@
             {{>profilemenu}}
             <div class="col-md-9 order-content">              
                 <div class="form_main col-md-4 col-sm-5 col-xs-7">
-                    <h4 class="heading"><strong>Product </strong> List <span></span>
+                    <h4 class="heading"><strong>My </strong> Products <span></span>
                     <a href="/agency/product/add" class="pull-right btn-sm btn-danger">Add Product</a>
                     </h4>
 
-                    {{#if isInRole 'affiliate'}}
+                    {{#if isInRole 'agency'}}
                         <table class="table table-hover">
                             <thead>
                                 <tr class="btn-primary">
@@ -21,20 +21,28 @@
                             </thead>
                          
                             <tbody>
-                                {{#each getallProduct}}
-                                <tr>
-                                    <td>{{index}}</td>
-                                    <td>{{name}}</td>
-                                    <td>{{getHumanDate date_of_departure}}</td>
-                                    <td>{{getHumanDate date_of_return}}</td>
-                                    <td>
-                                        <a href="#" class="del">Del |</a>
-                                        <a href="/agency/product/edit/{{_id}}"> Edit |</a>
-                                        <a href="/agency/product/{{_id}}"> View</a>
-                                    </td>
-                                
-                                </tr>
-                                {{/each}}
+                                {{#if getallProduct}}
+                                    {{#each getallProduct}}
+                                        <tr>
+                                            <td>{{index}}</td>
+                                            <td>{{name}}</td>
+                                            <td>{{getHumanDate date_of_departure}}</td>
+                                            <td>{{getHumanDate date_of_return}}</td>
+                                            <td>
+                                                <a href="#" class="del">Del |</a>
+                                                <a href="/agency/product/edit/{{_id}}"> Edit |</a>
+                                                <a href="/agency/product/{{_id}}"> View</a>
+                                            </td>
+                                        
+                                        </tr>
+                                    {{/each}}
+                                {{else}}
+                                    <tr>
+                                        <div class="alert alert-danger">
+                                            <strong>No Product !!!</strong> Please add new product !!!
+                                        </div>
+                                    </tr>
+                                {{/if}}
                             </tbody>
                             
                         </table>
