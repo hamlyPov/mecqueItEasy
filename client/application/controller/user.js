@@ -13,6 +13,8 @@ Template.user.onCreated(function bodyOnCreated() {
                     //Session.set('TOTALPRODUCTS', count);
                     $('#pagination').pagination({ items: count, itemsOnPage: limit, currentPage:page, hrefTextPrefix:'/cpanel/orders/', cssStyle: 'light-theme' });
                    
+                }else{
+                	console.log("GOTERROR",err.reason);
                 }
             })
     });
@@ -212,6 +214,8 @@ Template.userregister.events({
 		var role="affiliate"
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
+		var depaturedate=$("#depaturedate").val();
+		var paymentmodel=$("#paymentmodel").val();
 		var obj={
 			username:username,
 			familyname:familyname,
@@ -219,7 +223,9 @@ Template.userregister.events({
 			phone:phone,
 			type:selecttype,
 			numpayment:numpayment,
-			affiliate:affiliate
+			affiliate:affiliate,
+			depaturedate:depaturedate,
+			paymentmodel:paymentmodel
 		}
 		Meteor.call("registerUser",email,password,obj,role,function(err){
 			if(!err){
@@ -232,12 +238,15 @@ Template.userregister.events({
 		e.preventDefault();
 		var selecttype=$("#selecttype").val();
 		if(selecttype=="hajj"){
-			 option =' <option>1</option> <option>2</option><option>3</option>'
+			 option =' <option>1</option> <option>2</option><option>3</option><option>6</option>'
 			 $("#numpayment").html(option);
-
+			 var optiondepature='<option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2021</option>     '
+			 $("#depaturedate").html(optiondepature)
 		}else if(selecttype=="omrah"){
-			option =' <option>1</option> <option>2</option><option>4</option><option>6</option>'
+			option =' <option>1</option> <option>2</option><option>3</option>'
 			$("#numpayment").html(option);
+			var optiondepature='<option>12/03/2017</option><option>09/06/2018</option><option>01/01/2019</option>'
+			$("#depaturedate").html(optiondepature)
 		}
 	}
 });

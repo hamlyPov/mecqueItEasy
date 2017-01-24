@@ -1,4 +1,7 @@
 Meteor.methods({
+	countProduct:function() {
+		return product.find({}).count();
+	},
 	InsertProduct:function(obj){
 		product.insert(obj);
 	},
