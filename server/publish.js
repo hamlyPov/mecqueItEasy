@@ -53,3 +53,21 @@ Meteor.publish("myAdminTicket",function(page,limit){
 Meteor.publish("myprofile",function(id){
     return Meteor.users.find({'profile.affiliate':id});
 });
+
+Meteor.publish("productAdminPanel",function(page,limit){
+    //var limit = 4;
+    var limit=parseInt(limit);
+    page = (page)? page:1;
+    var skip = (page<=1)? 0 : (page - 1) * limit;
+    var allprod=product.find({},{limit:limit, skip:skip})
+    return allprod;
+   /* var usersid=[]
+    allprod.forEach(function(val){
+        usersid.push(val.agency);
+    });
+    var alluser=Meteor.users.find({_id:{$in:usersid}});
+    return [allprod,alluser]*/
+});
+Meteor.publish("allagency",function(){
+  return Meteor.users.find({roles:"agency"});
+});
