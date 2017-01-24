@@ -225,7 +225,11 @@
 					</div>
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">
-							<span class="hidden-xs">Welcome To Our System</span>
+							{{#if isInRole 'agency'}}
+								<span class="hidden-xs">Welcome <b style="color:#18039D">{{currentUser.profile.username}}</b> <p style="color:red">( Agency )</p></span>
+							{{else}}
+								<span class="hidden-xs">Welcome <b style="color:#18039D">{{currentUser.profile.username}} </b><p style="color:red">( Affiliate )</p></span>
+							{{/if}}
 						</div>
 						<div class="profile-usertitle-job">
 						</div>
@@ -359,7 +363,8 @@
 			    <tbody>
 			      <tr>
 			        <td><b>Invite link:</b></td>
-			        <td><input type="text" name="link1" value="{{GetRoot}}/register/affiliate/{{currentUser._id}}" style="width: 300px;"></td>
+			        <td><input type="text" readonly name="link1" class="link-text" value="{{GetRoot}}register/affiliate/{{currentUser._id}}" style="width: 450px;"></td>
+			        <td><input type="button" value="copy link" id="btn-copy"></td>
 			      </tr>
 			    </tbody>
 		  </table>
