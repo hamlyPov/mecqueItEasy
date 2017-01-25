@@ -16,10 +16,10 @@
 		                		<p><span class="label label-info">{{CountInvite}} invited</span> <span class="label label-warning">$3000 Total</span></p>
 		                		{{/if}}
 		                        <p>
-		                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
+		                            <!-- <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a> -->
 		                        </p>
 		                        {{#if GenerateButton}}
-		                        <input type="button" name="ticket" value="Generate Ticket" class="pull-right btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
+		                        <input type="button" name="ticket" value="Generate Ticket" class="pull-right btn-lg btn-success" data-toggle="modal" data-target="#product-options">
 		                        {{/if}}
 		                    </div>
 		                </div>
@@ -139,7 +139,7 @@
 	</div>
 	<!-- Popup Modal Ticket -->
 
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="product-options" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -148,14 +148,15 @@
 		        	<div class="col-md-6">
 		        		<div class="col-md-2"><label for="sel1">Agency:</label></div>
 		        		<div class="col-md-10">
-							<select class="form-control" id="selagency">
+							<select class="form-control" id="selAgency">
+								<option value="">All Agency</option>
 								{{#each GetallAgency}}
-							    	<option value="_id">{{profile.username}}, {{emails.[0].address}}</option>
+							    	<option value="{{_id}}">{{profile.username}}</option>
 								{{/each}}
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<!-- <div class="col-md-6">
 		        		<div class="col-md-2"><label for="sel1">Time:</label></div>
 		        		<div class="col-md-10">
 							  <select class="form-control" id="sel1">
@@ -165,7 +166,7 @@
 							    <option>4</option>
 							  </select>
 						</div>
-					</div>
+					</div> -->
 		        </div>
 	        </form>
 	      </div>
@@ -173,24 +174,32 @@
 	      	{{#if currentUser.profile.passport}}
 	        	<table class="table table-hover">
 	       			<thead>
-	       				<th>No</th>
-	       				<th>Agency name</th>
-	       				<th>description</th>
-	       				<th>date_of_departure</th>
-	       				<th>date_of_return</th>
-	       				<th>Action</th>
+	       				<tr class="btn-default">
+		       				<th>#</th>
+		       				<th>Agency name</th>
+		       				<th>description</th>
+		       				<th>Type</th>
+		       				<th>date_of_departure</th>
+		       				<th>date_of_return</th>
+		       				<th>Action</th>
+		       			</tr>
 	       			</thead>
 				    <tbody>
-				    	{{#each GetProduct}}
-					      	<tr>
-					        	<td>{{index}}</td>
-					        	<td>{{getagencyname agency}}</td>
-					        	<td>{{description}}</td>
-					        	<td>{{date_of_departure}}</td>
-					        	<td>{{date_of_return}}</td>
-					        	<td><input type="button" name="book" value="Book" class="btn-success btn-sm booking"></td>
-					      	</tr>
-					    {{/each}}
+				    	{{#if GetProduct currentUser.profile.type}}
+					    	{{#each GetProduct currentUser.profile.type}}
+						      	<tr>
+						        	<td>{{index}}</td>
+						        	<td>{{getagencyname agency}}</td>
+						        	<td>{{description}}</td>
+						        	<td>{{type}}</td>
+						        	<td>{{getHumanDate date_of_departure}}</td>
+						        	<td>{{getHumanDate date_of_return}}</td>
+						        	<td><input type="button" name="book" value="Book" class="btn-success btn-sm booking"></td>
+						      	</tr>
+						    {{/each}}
+						{{else}}
+							<tr><td colspan="7">No Product!!!</td></tr>
+						{{/if}}
 				    </tbody>
 			  	</table>
 			{{else}}
@@ -244,12 +253,12 @@
 								<i class="glyphicon glyphicon-user"></i>
 								<span class="hidden-xs">Change Password</span> </a>
 							</li>
-							<li>
-								<a href="/ticket">
-								<i class="glyphicon glyphicon-user"></i>
-								<span class="hidden-xs">My Ticket</span> </a>
-							</li>
 							{{#if isInRole 'agency'}}
+								<li>
+									<a href="/ticket">
+									<i class="glyphicon glyphicon-user"></i>
+									<span class="hidden-xs">My Ticket</span> </a>
+								</li>
 								<li>
 									<a href="/agency/product">
 									<i class="glyphicon glyphicon-ok"></i>
@@ -356,23 +365,55 @@
 <template name="inviteuser">
 			          
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
-        <h4 class="heading"><strong>Invite </strong> User (9 users)<span></span></h4>   
-        <table class="table table-hover">
-			    <tbody>
-			      <tr>
-			        <td><b>Invite link:</b></td>
-			        <td><input type="text" readonly name="link1" class="link-text" value="{{GetRoot}}register/affiliate/{{currentUser._id}}" style="width: 450px;"></td>
-			        <td><input type="button" value="copy link" id="btn-copy"></td>
-			      </tr>
+		{{#if countinvite}}
+	        <h4 class="heading"><strong>Invite </strong> User ( {{CountInvite}} Links)<span></span></h4>   
+	        <table class="table table-hover">
+			    <tbody id="data-count">
+			    	{{{countinvite}}}	
 			    </tbody>
-		  </table>
+			</table>
+		{{else}}
+			<h4 class="heading"><strong>My </strong> Ticket<span></span></h4> 
+			<table class="table table-hover">
+                <thead>
+                    <tr class="btn-primary">
+                    	<th>#</th>
+                        <th>Agency Name</th>
+                        <th>Product</th>
+                        <th>date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+             
+                <tbody>
+                    {{#if getallTicket}}
+                        {{#each getallTicket}}
+                            <tr>
+                            	<td>{{index}}</td>
+                                <td>{{getUsername agency}}</td>
+                                <td>{{getProductname product}}</td>
+                                <td>{{getHumanDate date}}</td>
+                                <td>{{status}}</td>
+                            </tr>
+                        {{/each}}
+                    {{else}}
+                        <tr>
+                            <div class="alert alert-danger">
+                                <strong>Please Order Ticket !!!</strong>
+                            </div>
+                        </tr>
+                    {{/if}}
+                </tbody>
+                
+            </table>
+		{{/if}}
     </div>	            
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
         <h4 class="heading"><strong>My </strong> Affiliates<span></span></h4>   
         <table class="table table-hover">
        			<thead>
        				<tr class="btn-primary">
-	       				<th>No</th>
+	       				<th>#</th>
 	       				<th>Username</th>
 	       				<th>Email</th>
 	       				<th>Phone</th>
