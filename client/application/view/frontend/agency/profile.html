@@ -13,7 +13,7 @@
 		                    <div class="media-body">
 		                        <h4 class="media-heading">{{currentUser.profile.username}}</h4>
 		                        {{#if isInRole 'affiliate'}}
-		                		<p><span class="label label-info">{{CountInvite}} invited</span> <span class="label label-warning">$3000 Total</span></p>
+		                		<p><span class="label label-info">{{CountNumberInvite}} invited</span> <span class="label label-warning">$3000 Total</span></p>
 		                		{{/if}}
 		                        <p>
 		                            <!-- <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a> -->
@@ -366,7 +366,7 @@
 			          
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
 		{{#if countinvite}}
-	        <h4 class="heading"><strong>Invite </strong> User ( {{CountInvite}} Links)<span></span></h4>   
+	        <h4 class="heading"><strong>Invite </strong> User ( {{CountNumberInvite}} Links)<span></span></h4>   
 	        <table class="table table-hover">
 			    <tbody id="data-count">
 			    	{{{countinvite}}}	
