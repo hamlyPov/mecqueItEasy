@@ -42,12 +42,12 @@ Template.ticket.events({
 Template.ticket.helpers({
 	getallTicket:function () {
     var uid=Meteor.userId();
-		return ticket.find({agency:uid});
+    var result = ticket.find({'agency':uid}).map(function(document, index){
+      document.index = index+1;
+      return document;
+    });
+    return result;
 	},
-  getallTicketCustomer:function(){
-    var uid=Meteor.userId();
-    return ticket.find({customer:uid});
-  },
   checkInvoice:function(invoice){
     if(invoice){
       return true;

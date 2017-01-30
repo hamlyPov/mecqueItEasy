@@ -262,10 +262,6 @@ Template.profile.helpers({
 		console.log(id);
 		return Meteor.users.findOne({_id:id});
 	},
-	CountInvite:function(){	
-		var id = Meteor.userId();	
-		return Meteor.users.find({'profile.affiliate':id}).count();
-	},
 	GenerateButton:function(){
 		var id = Meteor.userId();	
 		var result = Meteor.users.find({'profile.affiliate':id, 'roles':'affiliate'}).count();
@@ -275,18 +271,27 @@ Template.profile.helpers({
 			return false;
 		}
 	},
-	GetProduct:function(){
-		var result = product.find({}).map(function(document, index){
-			document.index = index+1;
-			return document;
-		});
-		return result;
+	GetProduct:function(type){
+		var agencyId = Session.get('AGENCY-ID');
+		if(agencyId){
+			var result = product.find({'agency':agencyId,'type':type}).map(function(document, index){
+				document.index = index+1;
+				return document;
+			});
+			return result;
+		}else{
+			var result = product.find({'type':type}).map(function(document, index){
+				document.index = index+1;
+				return document;
+			});
+			return result;
+		}
 	},
 	getagencyname:function(id){
 		return Meteor.users.findOne({'_id':id}).profile.username;
 	},
 	GetallAgency:function(){
-		return Meteor.users.find({'roles':'affiliate'});
+		return Meteor.users.find({'roles':'agency'});
 	},
 	Ispassport:function(passport){
 		console.log('passport== '+passport);
@@ -302,7 +307,7 @@ Template.profile.events({
 		var customer = Meteor.userId();
 		var product = this._id;
 		var agency = this.agency;
-		var date = Date.now();
+		var date = Math.floor(Date.now() / 1000);
 		var invoice = '';
 		var status = 'new';
 		var obj = {
@@ -316,7 +321,7 @@ Template.profile.events({
 		Meteor.call('SaveTicket',obj,function(err){
 			if(!err){
 				console.log('SaveTicket successfully');
-				Router.go('/ticket');
+				$('#product-options').modal('hide');
 			}else{
 				console.log(err.reason);
 			}
@@ -333,6 +338,11 @@ Template.profile.events({
 				if(!err){console.log('UpdatePassport successfully')}
 			});
 		}
+	},
+	"change #selAgency":function(e){
+		e.preventDefault();
+		var val = $('#selAgency').val();
+		Session.set('AGENCY-ID',val);
 	}
 });
 Template.editprofile.events({

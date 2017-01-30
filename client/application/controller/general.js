@@ -53,3 +53,7 @@ Template.registerHelper('Istype1', function(type){
 		}
 	}
 });
+Template.registerHelper('CountNumberInvite', function(){
+	var id = Meteor.userId();	
+	return Meteor.users.find({'profile.affiliate':id}).count();
+});

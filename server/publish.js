@@ -26,10 +26,10 @@ Meteor.publish("oneCategory",function(id){
 Meteor.publish("article",function(){
   return article.find({});
 });
-Meteor.publish("product",function(id){
+Meteor.publish("AllproductAgency",function(id){
   return product.find({'agency':id});
 });
-Meteor.publish("Allproduct",function(id){
+Meteor.publish("Allproduct",function(){
   return product.find({});
 });
 Meteor.publish("allticket",function(){
@@ -54,7 +54,10 @@ Meteor.publish("myAdminTicket",function(page,limit){
 });
 
 Meteor.publish("myprofile",function(id){
-    return Meteor.users.find({'profile.affiliate':id});
+    var result = Meteor.users.find({ $or: [ { 'profile.affiliate':id }, { 'roles': 'agency' } ] });
+    // var user = Meteor.users.find({'profile.affiliate':id});
+    // var agency = Meteor.users.find({'roles':'agency'});
+    return result;
 });
 
 Meteor.publish("productAdminPanel",function(page,limit){

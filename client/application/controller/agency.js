@@ -116,7 +116,8 @@ Template.editprofile.events({
 
 Template.agencyproduct.helpers({
 	getallProduct:function(){
-		var result = product.find({}).map(function(document, index){
+		var usi = Meteor.userId();
+		var result = product.find({'agency':usi}).map(function(document, index){
 			document.index = index+1;
 			return document;
 		});
@@ -141,19 +142,21 @@ Template.agencyaddproduct.events({
 		var html = '';
 		var agency = Meteor.userId();
 		var name = $('[name="name"]').val();
+		var type = $('[name="type"] option:selected').val();
 		var description = $('[name="description"]').val();
 		var date_of_departure = $('[name="dod"]').val();
-			date_of_departure = Date.now();
+			date_of_departure = Math.floor(Date.now(date_of_departure) / 1000);
 		var date_of_return = $('[name="dor"]').val();
-			date_of_return = Date.now();
+			date_of_return = Math.floor(Date.now(date_of_return) / 1000);
 		var obj = {
 			agency:agency,
+			type:type,
 			name:name,
 			description:description,
 			date_of_departure:date_of_departure,
 			date_of_return:date_of_return
 		}
-		if(agency == '' || description == '' || date_of_departure == '' || date_of_return == ''){
+		if(agency == '' || type == '' || description == '' || date_of_departure == '' || date_of_return == ''){
 			html += '<div class="alert alert-danger">';
                 html += '<strong>All Fields!</strong> can not empty please fill it.';
             html += '</div>';
