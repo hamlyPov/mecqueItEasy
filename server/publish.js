@@ -66,7 +66,12 @@ Meteor.publish("productAdminPanel",function(page,limit){
     page = (page)? page:1;
     var skip = (page<=1)? 0 : (page - 1) * limit;
     var allprod=product.find({},{limit:limit, skip:skip})
-    return allprod;
+    var allagency=[]
+    allprod.forEach(function(val){
+        allagency.push(val.agency)
+    });
+    var listuser=Meteor.users.find({_id:{$in:allagency}})
+    return [allprod,listuser];
    /* var usersid=[]
     allprod.forEach(function(val){
         usersid.push(val.agency);

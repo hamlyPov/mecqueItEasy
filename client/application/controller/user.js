@@ -177,7 +177,9 @@ Template.signin.events({
 });
 
 Template.userregister.onRendered(function() {
-    this.$('.datetimepicker').datetimepicker();
+    this.$('.datetimepicker').datetimepicker({
+    	format:'YYYY/MM/DD'
+    });
     
 });
 
@@ -205,6 +207,9 @@ Template.userregister.events({
 	'click #btnregister':function(e){
 		e.preventDefault();
 		var affiliate = Router.current().params.id;
+		if(affiliate==''||affiliate=='undefined'){
+			affiliate='';
+		}
 		var username=$("#firstname").val();
 		var familyname=$("#familyname").val();
 		var dob=$("#dob").val();
@@ -215,7 +220,7 @@ Template.userregister.events({
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
 		var depaturedate=$("#depaturedate").val();
-		var paymentmodel=$("#paymentmodel").val();
+		//var paymentmodel=$("#paymentmodel").val();
 		var obj={
 			username:username,
 			familyname:familyname,
@@ -224,14 +229,23 @@ Template.userregister.events({
 			type:selecttype,
 			numpayment:numpayment,
 			affiliate:affiliate,
-			depaturedate:depaturedate,
-			paymentmodel:paymentmodel
+			depaturedate:depaturedate
 		}
-		Meteor.call("registerUser",email,password,obj,role,function(err){
-			if(!err){
-				Router.go("/user/profile");
-			}
-		});
+		if(affiliate==''|| affiliate=="undefined"){
+			Meteor.call("registerUser",email,password,obj,role,function(err,data){
+				if(!err){
+					Meteor.call("findAffiliate",data);
+					Router.go("/login");
+				}
+			});
+		}else{
+			Meteor.call("registerUser",email,password,obj,role,function(err,data){
+				if(!err){
+					Router.go("/login");
+				}
+			});
+		}
+		
 
 	},
 	"change #selecttype":function(e){
@@ -247,7 +261,12 @@ Template.userregister.events({
 			$("#numpayment").html(option);
 			var optiondepature='<option>12/03/2017</option><option>09/06/2018</option><option>01/01/2019</option>'
 			$("#depaturedate").html(optiondepature)
-		}
+		}/*else{
+			 option =' <option>1</option> <option>2</option><option>3</option><option>6</option>'
+			 $("#numpayment").html(option);
+			 var optiondepature='<option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2021</option>     '
+			 $("#depaturedate").html(optiondepature)
+		}*/
 	}
 });
 
@@ -363,7 +382,9 @@ Template.editprofile.events({
 	}
 });
 Template.editprofile.onRendered(function() {
-    this.$('.datetimepicker').datetimepicker();
+    this.$('.datetimepicker').datetimepicker({
+    	format:'YYYY/MM/DD'
+    });
 });
 
 Template.changepassword.events({

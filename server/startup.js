@@ -1,7 +1,6 @@
 Meteor.startup(function() {
     
-
-
+    
     // MONGO_URL="mongodb://djisse:paela95v@ds139278.mlab.com:39278/heroku_3xpfhsv3";
     // console.log("URL= ");
     // console.log(MONGO_URL); 
