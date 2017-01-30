@@ -247,7 +247,12 @@ Template.userregister.events({
 			$("#numpayment").html(option);
 			var optiondepature='<option>12/03/2017</option><option>09/06/2018</option><option>01/01/2019</option>'
 			$("#depaturedate").html(optiondepature)
-		}
+		}/*else{
+			 option =' <option>1</option> <option>2</option><option>3</option><option>6</option>'
+			 $("#numpayment").html(option);
+			 var optiondepature='<option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2021</option>     '
+			 $("#depaturedate").html(optiondepature)
+		}*/
 	}
 });
 
