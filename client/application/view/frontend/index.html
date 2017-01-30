@@ -1,8 +1,11 @@
 <template name="homefront">
 <div class="container" style="margin-top: 60px">
+    {{#if currentUser}}
+        <h3>Logout to register the new one</h3>
+    {{else}}
     <a href="/agency/register">AGENCY REGGISTER</a> <br/>
     <a href="/user/register">USER REGISTER</a>
-    
+    {{/if}}
 </div>
 
 </template>
@@ -21,13 +24,19 @@
             </div>
             <div id="main_navbar_items" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                      
-                    <a href="/user/register">AFFILIATE REGISTER</a>
-                    </li>
-                    <li>
-                           <a href="/agency/register">AGENCY REGGISTER</a>
-                    </li>
+                    {{#if currentUser}}
+                        <li>
+                            <a href="/">welcome</a>
+                        </li>
+                    {{else}}
+                        <li>
+                          
+                        <a href="/user/register">AFFILIATE REGISTER</a>
+                        </li>
+                        <li>
+                               <a href="/agency/register">AGENCY REGGISTER</a>
+                        </li>
+                    {{/if}}
                    
                     
 

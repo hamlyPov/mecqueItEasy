@@ -44,6 +44,8 @@ Meteor.methods({
             console.log("ID PARAMS"+iduser)
             console.log("ONEUSER "+oneuser)
             return Meteor.users.update({_id:iduser},{$set:{"profile.affiliate":oneuser._id}});
+        }else{
+             return Meteor.users.update({_id:iduser},{$set:{"profile.affiliate":""}});
         }
     }
 });
