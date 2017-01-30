@@ -28,6 +28,7 @@ Meteor.methods({
             profile: obj
         });
         Roles.setUserRoles(targetUserId,roles);
+        return targetUserId;
     },
     countUser:function(){
         var alluser=Meteor.users.find({});
@@ -35,5 +36,14 @@ Meteor.methods({
     },
     changepassword:function(uid,newpwd){
          Accounts.setPassword(uid,newpwd)
+    },
+    findAffiliate:function(iduser){
+        var alluser=Meteor.users.find( { $and: [ { _id: { $ne: iduser} }, { "profile.affiliate":"" } ] } )
+        if(alluser){
+            oneuser=alluser.fetch()[0];
+            console.log("ID PARAMS"+iduser)
+            console.log("ONEUSER "+oneuser)
+            return Meteor.users.update({_id:iduser},{$set:{"profile.affiliate":oneuser._id}});
+        }
     }
 });
