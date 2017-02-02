@@ -10,7 +10,7 @@ Template.agency.onRendered(function(){
     //Session.set('creating',true); 
 });
 Template.editprofile.onRendered(function(){
-    $('.regedit').validate();
+    // $('.regedit').validate();
 });
 Template.agency.events({
 	"click #btn-register": function(e){
