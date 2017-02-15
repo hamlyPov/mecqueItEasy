@@ -180,7 +180,9 @@ Template.userregister.onRendered(function() {
     this.$('.datetimepicker').datetimepicker({
     	format:'YYYY/MM/DD'
     });
-    
+    this.$('.datetimepicker1').datetimepicker({
+    	format:'YYYY'
+    });
 });
 
 Template.userregister.events({
@@ -196,17 +198,53 @@ Template.userregister.events({
 		var phone=$("#phone").val();
 		var email=$("#email").val();
 		var password=$("#pwd").val();
-		if(username==''||familyname==''||dob==''||phone==''||email==''||password==''){
-			$("#error").html("<b style='color:red'>please fill out the form </b>")
+		var role="affiliate";
+		var res_affiliate = Router.current().params.id;
+		console.log('res_affiliate== '+res_affiliate);
+		var res = Meteor.users.findOne({'_id':res_affiliate});
+		console.log('res== '+res);
+		if(typeof(res) == 'undefined'){
+			console.log('undefined');
+			if(username==''||familyname==''||dob==''||phone==''||email==''||password==''){
+				$("#error").html("<div class='alert alert-danger'><strong>Error!</strong>please fill out the form</div>")
+			}else{
+				$("#registerform").addClass("hidden");
+				$("#nextrgister").removeClass("hidden");
+			}
 		}else{
-			$("#registerform").addClass("hidden");
-			$("#nextrgister").removeClass("hidden")
+			console.log('insert');
+			res_affiliate = res._id;
+			var res_type = res.profile.type;
+			var res_numpayment = res.profile.numpayment;
+			var res_depaturedate = res.profile.depaturedate;
+			console.log('type== '+res_type+' ==numpayment== '+res_numpayment+' ==depaturedate== '+res_depaturedate);
+			var obj={
+				username:username,
+				familyname:familyname,
+				dob:dob,
+				phone:phone,
+				type:res_type,
+				numpayment:res_numpayment,
+				affiliate:res_affiliate,
+				depaturedate:res_depaturedate
+			}
+			if(username==''||familyname==''||dob==''||phone==''||email==''||password==''){
+				$("#error").html("<div class='alert alert-danger'><strong>Error!</strong>please fill out the form</div>")
+			}else{
+				Meteor.call("registerUser",email,password,obj,role,function(err,data){
+					if(!err){
+						Router.go("/login");
+					}
+				});
+			}
 		}
+		
 		
 	},
 	'click #btnregister':function(e){
 		e.preventDefault();
 		var affiliate = Router.current().params.id;
+		console.log('params =='+ affiliate);
 		if(affiliate==''||affiliate=='undefined'){
 			affiliate='';
 		}
@@ -216,10 +254,18 @@ Template.userregister.events({
 		var phone=$("#phone").val();
 		var email=$("#email").val();
 		var password=$("#pwd").val();
-		var role="affiliate"
+		var role="affiliate";
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
-		var depaturedate=$("#depaturedate").val();
+		var mydate = Session.get('HAJJ-DATE');
+		var depaturedate = '';
+		if(mydate == 'hajj'){
+			depaturedate = $(".hajjdepaturedate").val();
+		}else if(mydate == 'omrah'){
+			depaturedate = $(".omrahdepaturedate").val();
+		}else{
+			depaturedate = $("#depaturedate").val();
+		}
 		//var paymentmodel=$("#paymentmodel").val();
 		var obj={
 			username:username,
@@ -252,21 +298,14 @@ Template.userregister.events({
 		e.preventDefault();
 		var selecttype=$("#selecttype").val();
 		if(selecttype=="hajj"){
-			 option =' <option>1</option> <option>2</option><option>3</option><option>6</option>'
-			 $("#numpayment").html(option);
-			 var optiondepature='<option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2021</option>     '
-			 $("#depaturedate").html(optiondepature)
+			$('.datehajj').removeClass('hidden');
+			$('.dateomrah').addClass('hidden');
+			Session.set('HAJJ-DATE','hajj');
 		}else if(selecttype=="omrah"){
-			option =' <option>1</option> <option>2</option><option>3</option>'
-			$("#numpayment").html(option);
-			var optiondepature='<option>12/03/2017</option><option>09/06/2018</option><option>01/01/2019</option>'
-			$("#depaturedate").html(optiondepature)
-		}/*else{
-			 option =' <option>1</option> <option>2</option><option>3</option><option>6</option>'
-			 $("#numpayment").html(option);
-			 var optiondepature='<option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2021</option>     '
-			 $("#depaturedate").html(optiondepature)
-		}*/
+			$('.datehajj').addClass('hidden');
+			$('.dateomrah').removeClass('hidden');
+			Session.set('HAJJ-DATE','omrah');
+		}
 	}
 });
 
@@ -279,10 +318,10 @@ Template.profile.helpers({
 	GenerateButton:function(){
 		var id = Meteor.userId();	
 		var result = Meteor.users.find({'profile.affiliate':id, 'roles':'affiliate'}).count();
-		if(result >= 5){
+		var tic = ticket.findOne({'customer':id});
+		console.log(tic);
+		if(result >= 9 && typeof(tic) == 'undefined'){
 			return true;
-		}else{
-			return false;
 		}
 	},
 	GetProduct:function(type){

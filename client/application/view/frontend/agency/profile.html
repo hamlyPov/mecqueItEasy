@@ -13,7 +13,9 @@
 		                    <div class="media-body">
 		                        <h4 class="media-heading">{{currentUser.profile.username}}</h4>
 		                        {{#if isInRole 'affiliate'}}
-		                		<p><span class="label label-info">{{CountNumberInvite}} invited</span> <span class="label label-warning">$3000 Total</span></p>
+		                		<p><span class="label label-info">{{CountNumberInvite}} invited</span> 
+		                		<!-- <span class="label label-warning">$3000 Total</span> -->
+		                		</p>
 		                		{{/if}}
 		                        <p>
 		                            <!-- <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a> -->
@@ -366,7 +368,7 @@
 			          
 	<div class="form_main col-md-4 col-sm-5 col-xs-7">
 		{{#if countinvite}}
-	        <h4 class="heading"><strong>Invite </strong> User ( {{CountNumberInvite}} Links)<span></span></h4>   
+	        <h4 class="heading"><strong>Invite </strong> User ( {{CountNumberInvite}} Invited)<span></span></h4>   
 	        <table class="table table-hover">
 			    <tbody id="data-count">
 			    	{{{countinvite}}}	
@@ -393,7 +395,7 @@
                                 <td>{{getUsername agency}}</td>
                                 <td>{{getProductname product}}</td>
                                 <td>{{getHumanDate date}}</td>
-                                <td>{{status}}</td>
+                                <td class="btn-default btn-sm">{{status}}</td>
                             </tr>
                         {{/each}}
                     {{else}}
@@ -413,21 +415,21 @@
         <table class="table table-hover">
        			<thead>
        				<tr class="btn-primary">
-	       				<th>#</th>
-	       				<th>Username</th>
+	       				<th class="text-center">No</th>
+	       				<!-- <th>Username</th>
 	       				<th>Email</th>
-	       				<th>Phone</th>
-	       				<th>Action</th>
+	       				<th>Phone</th> -->
+	       				<th class="text-center">Status</th>
 	       			</tr>
        			</thead>
 			    <tbody>
 			    	{{#each GetuserInvite}}
 				      	<tr>
-				        	<td>{{index}}</td>
-				        	<td>{{profile.username}}</td>
+				        	<td class="text-center">{{index}}</td>
+				        	<!-- <td>{{profile.username}}</td>
 				        	<td>{{emails.[0].address}}</td>
-				        	<td>{{profile.phone}}</td>
-				        	<td class="btn-success btn-sm"><a href="#" >Active</a></td>
+				        	<td>{{profile.phone}}</td> -->
+				        	<td class="btn-default btn-sm text-center"><a href="#" >totally acquired</a></td>
 				      	</tr>
 				    {{/each}}
 			    </tbody>

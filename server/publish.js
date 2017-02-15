@@ -82,3 +82,7 @@ Meteor.publish("productAdminPanel",function(page,limit){
 Meteor.publish("allagency",function(){
   return Meteor.users.find({roles:"agency"});
 });
+
+Meteor.publish("UserRegisterAffiliate",function(){
+  return Meteor.users.find({roles:"affiliate"});
+});

@@ -18,15 +18,15 @@ Template.inviteuser.helpers({
 		var html = '';
 		var roots = window.location.href;
 		var fullurl = roots.replace(/(http.*?\/\/.*?\/)(.*)/g,"$1");
-		var member = 5;
+		var member = 8;
+		var i = 0;
 		if(num <= member){
 			for(num ; num <= member ; num++){
-				console.log('mynum=='+ num)
 				html += '<tr>';
-			        html += '<td><b>link '+(num+1)+' :</b></td>';
+			        html += '<td><b>link '+(i+1)+' :</b></td>';
 			        html += '<td><input type="text" readonly name="link1" class="link-text" value="'+fullurl+'register/affiliate/'+Meteor.userId()+'" style="width: 450px;"></td>';
 			        html += '<td><input type="button" value="copy link" id="btn-copy"></td>';
-			    html += '</tr>';			
+			    html += '</tr>';	i++;		
 			}
 			return html;
 		}else{
