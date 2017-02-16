@@ -198,6 +198,7 @@ Template.userregister.events({
 		var phone=$("#phone").val();
 		var email=$("#email").val();
 		var password=$("#pwd").val();
+		var payment=$("#selectpayment").val();
 		var role="affiliate";
 		var res_affiliate = Router.current().params.id;
 		console.log('res_affiliate== '+res_affiliate);
@@ -226,7 +227,8 @@ Template.userregister.events({
 				type:res_type,
 				numpayment:res_numpayment,
 				affiliate:res_affiliate,
-				depaturedate:res_depaturedate
+				depaturedate:res_depaturedate,
+				payment:payment
 			}
 			if(username==''||familyname==''||dob==''||phone==''||email==''||password==''){
 				$("#error").html("<div class='alert alert-danger'><strong>Error!</strong>please fill out the form</div>")
@@ -254,6 +256,7 @@ Template.userregister.events({
 		var phone=$("#phone").val();
 		var email=$("#email").val();
 		var password=$("#pwd").val();
+		var payment=$("#selectpayment").val();
 		var role="affiliate";
 		var numpayment=$("#numpayment").val();
 		var selecttype=$("#selecttype").val();
@@ -275,7 +278,8 @@ Template.userregister.events({
 			type:selecttype,
 			numpayment:numpayment,
 			affiliate:affiliate,
-			depaturedate:depaturedate
+			depaturedate:depaturedate,
+			payment:payment
 		}
 		if(affiliate==''|| affiliate=="undefined"){
 			Meteor.call("registerUser",email,password,obj,role,function(err,data){
